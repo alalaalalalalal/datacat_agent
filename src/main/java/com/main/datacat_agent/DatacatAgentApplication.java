@@ -7,6 +7,7 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.List;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,11 +19,15 @@ import com.main.datacat_agent.entity.ScriptEntity;
 import com.main.datacat_agent.service.DatacatAgentService;
 import com.main.datacat_agent.service.DatacatAgentServiceImpl;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @SpringBootApplication
 public class DatacatAgentApplication implements CommandLineRunner {
-
+	
 	public static void main(String[] args) {
 		SpringApplication.run(DatacatAgentApplication.class, args);
+		
 	}
 	@Bean
 	public DatacatAgentService getDatacatAgentService(){
@@ -39,6 +44,7 @@ public class DatacatAgentApplication implements CommandLineRunner {
 					String strStamp = String.valueOf(timestamp.getTime());
 					Date date = new Date(Long.parseLong(strStamp));
 					String scriptCommand = scriptEntity.getCommand();
+					log.info("스크립트 log={}", scriptCommand);
 					int scriptId = scriptEntity.getJobId();
 					Timestamp lastExcutionAt = getDatacatAgentService().readScriptExecutionAt(scriptId);
 
@@ -62,7 +68,7 @@ public class DatacatAgentApplication implements CommandLineRunner {
 							//스크립트 실행
 							scriptResult = getDatacatAgentService().execShellScript(scriptCommand);
 							result = scriptResult.toString();
-							// System.out.println(result);
+							System.out.println("실행결과" +result);
 							if(!result.equals("0")){//정상
 								getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(1, result, timestamp, scriptId));
 							}else{//비정상
