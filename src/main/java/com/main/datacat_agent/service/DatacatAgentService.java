@@ -22,7 +22,7 @@ public interface DatacatAgentService {
     //스크립트 읽어오기
     public List<ScriptEntity> readScript();
     //스크립트 실행
-    public StringBuilder execShellScript(String script);
+    public StringBuilder execShellScript(String[] script);
     //스크립트 최종 실행 시간 조회
     public Timestamp readScriptExecutionAt(int scriptId);
     //스크립트 스케줄 등록

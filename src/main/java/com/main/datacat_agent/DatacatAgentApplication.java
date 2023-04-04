@@ -43,7 +43,8 @@ public class DatacatAgentApplication implements CommandLineRunner {
 					Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 					String strStamp = String.valueOf(timestamp.getTime());
 					Date date = new Date(Long.parseLong(strStamp));
-					String scriptCommand = scriptEntity.getCommand();
+					String[] scriptCommand = {scriptEntity.getCommand()};
+					// String scriptCommand = scriptEntity.getCommand();
 					log.info("스크립트 log={}", scriptCommand);
 					int scriptId = scriptEntity.getJobId();
 					Timestamp lastExcutionAt = getDatacatAgentService().readScriptExecutionAt(scriptId);

@@ -55,7 +55,7 @@ public class DatacatAgentServiceImpl implements DatacatAgentService {
 
 
     @Override
-    public StringBuilder execShellScript(String script) {
+    public StringBuilder execShellScript(String[] script) {
         try {
             // Run script
             Process process = Runtime.getRuntime().exec(script);
