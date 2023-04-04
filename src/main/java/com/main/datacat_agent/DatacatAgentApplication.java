@@ -47,9 +47,8 @@ public class DatacatAgentApplication implements CommandLineRunner {
 					log.info("스크립트 log={}", scriptCommand);
 					int scriptId = scriptEntity.getJobId();
 					Timestamp lastExcutionAt = getDatacatAgentService().readScriptExecutionAt(scriptId);
-
-					StringBuilder scriptResult = getDatacatAgentService().execShellScript(scriptCommand);
-					String result = scriptResult.toString();
+					StringBuilder scriptResult = new StringBuilder();
+					String result = "";
 					// System.out.println(result);
 					if(lastExcutionAt == null ){
 						scriptResult = getDatacatAgentService().execShellScript(scriptCommand);
@@ -68,7 +67,7 @@ public class DatacatAgentApplication implements CommandLineRunner {
 							//스크립트 실행
 							scriptResult = getDatacatAgentService().execShellScript(scriptCommand);
 							result = scriptResult.toString();
-							System.out.println("실행결과" +result);
+							log.info("실행결과 = {}", result);
 							if(!result.equals("0")){//정상
 								getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(1, result, timestamp, scriptId));
 							}else{//비정상
