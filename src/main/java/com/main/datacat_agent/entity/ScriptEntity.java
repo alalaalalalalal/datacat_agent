@@ -49,7 +49,7 @@ public class ScriptEntity {
     private String usable;
 
     @Column(name="repeatInterval")
-    private String repeatInterval;
+    private int repeatInterval;
 
     @Column(name="updatedById")
     private int updatedById;
@@ -75,7 +75,7 @@ public class ScriptEntity {
 
 
     
-    public ScriptEntity(long id, String program, Timestamp updatedAt, Timestamp createdAt, int jobId, String hostname, String command, String comment, String lastResult, String usable, String repeatInterval, int updatedById, int createdById, int regionId, int managerId, int managerGroupId, Time startTime, Time endTime) {
+    public ScriptEntity(long id, String program, Timestamp updatedAt, Timestamp createdAt, int jobId, String hostname, String command, String comment, String lastResult, String usable, int repeatInterval, int updatedById, int createdById, int regionId, int managerId, int managerGroupId, Time startTime, Time endTime) {
         this.pid = id;
         this.program = program;
         this.updatedAt = updatedAt;
