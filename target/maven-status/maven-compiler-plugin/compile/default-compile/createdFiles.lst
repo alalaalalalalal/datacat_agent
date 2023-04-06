@@ -1,5 +1,4 @@
 com/main/datacat_agent/entity/CategorySubEntity.class
-com/SSH2AWScopy.class
 com/main/datacat_agent/entity/UserEntity.class
 com/main/datacat_agent/entity/ScriptEntity.class
 com/main/datacat_agent/entity/ExecutionLogEntity.class
