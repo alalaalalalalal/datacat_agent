@@ -72,6 +72,8 @@ public class DatacatAgentApplication implements CommandLineRunner {
 							//스크립트 실행
 							scriptResult = getDatacatAgentService().execShellScript(scriptCommand);
 							result = scriptResult.toString();
+							log.info("실행결과 = {}", result);
+							System.out.println(result);
 							Timestamp result_tmp = Timestamp.valueOf(result);
 							Calendar cal = Calendar.getInstance();
 							cal.setTime(result_tmp);
