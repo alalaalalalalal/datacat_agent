@@ -5,7 +5,7 @@ import org.influxdb.InfluxDBFactory;
 
 public class InfluxDbConnector {  //연결용 클래스 입니다.
 	
-    private static final String DB_URL = "DEV-Influx-Connect-IMSI-ba7f50050f9bbe38.elb.us-east-1.amazonaws.com:8086";
+    private static final String DB_URL = "http://DEV-Influx-Connect-IMSI-ba7f50050f9bbe38.elb.us-east-1.amazonaws.com:8086";
     private static final String DB_ID = "admin ";
     private static final String DB_PWD = "admin";
 
