@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.List;
 
 import org.slf4j.LoggerFactory;
@@ -63,12 +64,22 @@ public class DatacatAgentApplication implements CommandLineRunner {
 					}else{
 						String lastExecStamp = String.valueOf(lastExcutionAt.getTime());
 						Date lastExecDate = new Date(Long.parseLong(lastExecStamp));
+						
+
+						
 						// if(lastExecDate.compareTo(date)>=0){ //스크립트 마지막 실행시간 + 인터벌이 현재시간보다 이후일 경우에만 실행
 
 							//스크립트 실행
 							scriptResult = getDatacatAgentService().execShellScript(scriptCommand);
 							result = scriptResult.toString();
+							Timestamp result_tmp = Timestamp.valueOf(result);
+							Calendar cal = Calendar.getInstance();
+							cal.setTime(result_tmp);
+							cal.add(Calendar.MINUTE, scriptEntity.getRepeatInterval());
+							result_tmp.setTime(cal.getTime().getTime());
+							System.out.println(result_tmp);
 							log.info("실행결과 = {}", result);
+							log.info("실행결과 + 인터벌 = {}", result_tmp.toString());
 							if(!result.equals("0")){//정상
 								getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(1, result, timestamp, scriptId));
 							}else{//비정상
