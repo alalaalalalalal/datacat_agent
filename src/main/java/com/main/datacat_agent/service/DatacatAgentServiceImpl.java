@@ -9,6 +9,12 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
+import org.influxdb.InfluxDB;
+import org.influxdb.dto.Query;
+import org.influxdb.dto.QueryResult;
+import org.influxdb.dto.QueryResult.Result;
+import org.influxdb.dto.QueryResult.Series;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import com.main.datacat_agent.entity.ExecutionLogEntity;
 import com.main.datacat_agent.entity.MessageEntity;
@@ -28,6 +34,10 @@ public class DatacatAgentServiceImpl implements DatacatAgentService {
     UserRepository userRepository;
     @Autowired
     ScriptRepository scriptRepository;
+
+    private static final InfluxDbConnector conn = InfluxDbConnector.getInstance(); 
+    protected static final InfluxDB infDB = conn.getDb();
+
 
     @Override
     public Object insertScriptResult(ExecutionLogEntity executionLogEntity) {
@@ -99,6 +109,16 @@ public class DatacatAgentServiceImpl implements DatacatAgentService {
     public String getSSHResponse(String source) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getSSHResponse'");
+    }
+
+
+    @Override
+    public QueryResult getInfluxStatus(String query) {
+         //위에서 만들어준 접속용 인플럭스DB 연결 클래스
+
+        Query q = new Query(query, "isl");
+        QueryResult ask = infDB.query(q);  //List + Map형태의 객체(CRUD 전부)
+        return ask;
     }
 
 }

@@ -1,20 +1,17 @@
 package com.main.datacat_agent;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.sql.Date;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.List;
 
-import org.slf4j.LoggerFactory;
+import org.influxdb.dto.QueryResult;
+import org.influxdb.dto.QueryResult.Result;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import com.SSH2AWS;
 import com.main.datacat_agent.entity.ExecutionLogEntity;
 import com.main.datacat_agent.entity.ScriptEntity;
 import com.main.datacat_agent.service.DatacatAgentService;
@@ -36,6 +33,12 @@ public class DatacatAgentApplication implements CommandLineRunner {
 	}
 	@Override
 	public void run(String... args) throws Exception {
+		String q = "SELECT time,nodeID,pointsWrittenOK FROM \"_internal\".\"monitor\".\"httpd\" order by time desc limit 30";
+		QueryResult infQueryResult =  getDatacatAgentService().getInfluxStatus(q);
+		List<Result> infQueryResultList = infQueryResult.getResults();
+		for(Result infQueryResultRow : infQueryResultList){
+			log.info("인플럭스 실행결과 = {}", infQueryResult.toString());
+		}
 		while(true){
 			List<ScriptEntity> scriptList = getDatacatAgentService().readScript();
 			for(ScriptEntity scriptEntity : scriptList){
@@ -46,7 +49,7 @@ public class DatacatAgentApplication implements CommandLineRunner {
 					Date date = new Date(Long.parseLong(strStamp));
 					String[] scriptCommand = {"/bin/sh", "-c", scriptEntity.getCommand()};
 					// String scriptCommand = scriptEntity.getCommand();
-					log.info("스크립트 log={}", scriptCommand);
+					log.info("스크립트 log={}", scriptCommand[2]);
 					int scriptId = scriptEntity.getJobId();
 					Timestamp lastExcutionAt = getDatacatAgentService().readScriptExecutionAt(scriptId);
 					StringBuilder scriptResult = new StringBuilder();
@@ -64,32 +67,29 @@ public class DatacatAgentApplication implements CommandLineRunner {
 					}else{
 						String lastExecStamp = String.valueOf(lastExcutionAt.getTime());
 						Date lastExecDate = new Date(Long.parseLong(lastExecStamp));
-						
+					
 
-						
-						// if(lastExecDate.compareTo(date)>=0){ //스크립트 마지막 실행시간 + 인터벌이 현재시간보다 이후일 경우에만 실행
-
-							//스크립트 실행
-							scriptResult = getDatacatAgentService().execShellScript(scriptCommand);
-							result = scriptResult.toString();
-							log.info("실행결과 = {}", result);
-							System.out.println(result);
-							Timestamp result_tmp = Timestamp.valueOf(result);
-							Calendar cal = Calendar.getInstance();
-							cal.setTime(result_tmp);
-							cal.add(Calendar.MINUTE, scriptEntity.getRepeatInterval());
-							result_tmp.setTime(cal.getTime().getTime());
-							System.out.println(result_tmp);
-							log.info("실행결과 = {}", result);
-							log.info("실행결과 + 인터벌 = {}", result_tmp.toString());
-							if(!result.equals("0")){//정상
-								getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(1, result, timestamp, scriptId));
-							}else{//비정상
-								getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(0, result, timestamp, scriptId));
-							}
+						log.info("실행결과 = {}", result);
+						//스크립트 실행
+						scriptResult = getDatacatAgentService().execShellScript(scriptCommand);
+						result = scriptResult.toString();
+						log.info("실행결과 = {}", result);
+						System.out.println(result);
+						Timestamp result_tmp = Timestamp.valueOf(result);
+						Calendar cal = Calendar.getInstance();
+						cal.setTime(result_tmp);
+						cal.add(Calendar.MINUTE, scriptEntity.getRepeatInterval());
+						result_tmp.setTime(cal.getTime().getTime());
+						System.out.println(result_tmp);
+						log.info("실행결과 = {}", result);
+						log.info("실행결과 + 인터벌 = {}", result_tmp.toString());
+						if(!result.equals("0")){//정상
+							getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(1, result, timestamp, scriptId));
+						}else{//비정상
+							getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(0, result, timestamp, scriptId));
+						}
 				
 							
-						// }
 					}
 					
 				}	

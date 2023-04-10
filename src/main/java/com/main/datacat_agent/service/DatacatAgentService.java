@@ -7,6 +7,8 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
+import org.influxdb.dto.QueryResult;
+
 import com.main.datacat_agent.entity.ExecutionLogEntity;
 import com.main.datacat_agent.entity.MessageEntity;
 import com.main.datacat_agent.entity.ScriptEntity;
@@ -29,6 +31,8 @@ public interface DatacatAgentService {
     public void registerScriptSchedule(List<ScriptEntity> scriptList);
     //ssh 스크립트 실행
     public String getSSHResponse(String source);
+    //인플럭스 테스트
+    public QueryResult getInfluxStatus(String query);
 }
 
 
