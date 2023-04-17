@@ -29,8 +29,8 @@ public class DatacatAgentServiceImpl implements DatacatAgentService {
     @Autowired
     ScriptRepository scriptRepository;
 
-    private static final InfluxDbConnector conn = InfluxDbConnector.getInstance(); 
-    protected static final InfluxDB infDB = conn.getDb();
+    private InfluxDbConnector infConn = InfluxDbConnector.getInstance(); 
+    private InfluxDB infDB = infConn.getDb();
 
 
     @Override

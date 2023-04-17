@@ -36,9 +36,9 @@ public class DatacatAgentApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		MysqlConnector mysqlConnector = new MysqlConnector();
 		String mysqlReturn = mysqlConnector.executeMysql("SELECT if((TIMESTAMPDIFF(MINUTE, sysdate(),reg_dt)) >= 5, 1,0) AS TIMESTAMPDIFF FROM uep.tb_mntrg_item_raw_data ORDER BY reg_dt desc LIMIT 1;");
+		log.info("실행 결과 : "+mysqlReturn);
 		String q = "SELECT time,nodeID,pointsWrittenOK FROM \"_internal\".\"monitor\".\"httpd\" order by time desc limit 30";
 		executeInfluxQuery(q);
-		log.info("실행 결과 : "+mysqlReturn);
 		// while(true){
 			List<ScriptEntity> scriptList = getDatacatAgentService().readScript();
 			for(ScriptEntity scriptEntity : scriptList){
