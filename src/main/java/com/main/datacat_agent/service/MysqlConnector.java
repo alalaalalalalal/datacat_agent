@@ -10,8 +10,8 @@ public class MysqlConnector {
 
 	
 	public String executeMysql(String q) throws SQLException {
-		Connection mysqlConn = DriverManager.getConnection("jdbc:mysql://dev-dp-db1-cluster-virginia.cluster-c8vihicq2w3y.us-east-1.rds.amazonaws.com:33060/uep?characterEncoding=UTF-8&enabledTLSProtocols=TLSv1.2&clusterInstanceHostPattern=?.0.0.1","sithome","sit0911!");
-			
+		Connection mysqlConn = DriverManager.getConnection("jdbc:mysql://dev-dp-db1-cluster-virginia-instance-1.c8vihicq2w3y.us-east-1.rds.amazonaws.com:33060/uep?characterEncoding=UTF-8&enabledTLSProtocols=TLSv1.2&clusterInstanceHostPattern=?.0.0.1&serverTimezone=UTC","sithome","sit0911!");	
+		
 		Statement mysqlSt = mysqlConn.createStatement();
 
 		try {
