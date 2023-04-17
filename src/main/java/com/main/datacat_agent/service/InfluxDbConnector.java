@@ -7,7 +7,8 @@ import org.influxdb.dto.QueryResult;
 
 public class InfluxDbConnector {  //연결용 클래스 입니다.
 	
-    private final String DB_URL = "http://DEV-Influx-Connect-IMSI-ba7f50050f9bbe38.elb.us-east-1.amazonaws.com:8086";
+    private final String DB_URL = "http://10.157.16.71:8086";
+    // private final String DB_URL = "http://DEV-Influx-Connect-IMSI-ba7f50050f9bbe38.elb.us-east-1.amazonaws.com:8086";
     private final String DB_ID = "admin";
     private final String DB_PWD = "admin";
 
