@@ -62,8 +62,9 @@
         </dependency>
 		<dependency>
 			<groupId>org.influxdb</groupId>
-		<artifactId>influxdb-java</artifactId>
-</dependency>
+			<artifactId>influxdb-java</artifactId>
+			<version>2.23</version>
+		</dependency>
  </dependencies>
 	<build>
 		<plugins>
