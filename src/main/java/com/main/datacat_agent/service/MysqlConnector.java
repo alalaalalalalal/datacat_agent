@@ -17,8 +17,12 @@ public class MysqlConnector {
 		try {
 			
 			ResultSet rs = mysqlSt.executeQuery(q); // ResultSet은 쿼리문을 보낸후 나온 결과를 가져올 때 사용한다.
+			String result = "";
+			while(rs.next()){
+				result = rs.getString("TIMESTAMPDIFF");
+			}
+			return result;
 			
-			return rs.getString(0);
 		} catch (Exception e) {
 			e.printStackTrace();
             return null;
