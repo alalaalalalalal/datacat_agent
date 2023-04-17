@@ -17,6 +17,6 @@ public class InfluxDbConnector {  //연결용 클래스 입니다.
         influxDB.setDatabase("isl");
         QueryResult queryResult = influxDB.query(new Query(q));
         System.out.println(queryResult);
+        influxDB.close();
     }
-
 }
