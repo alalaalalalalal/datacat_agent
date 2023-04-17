@@ -17,7 +17,7 @@ import com.main.datacat_agent.entity.ExecutionLogEntity;
 import com.main.datacat_agent.entity.ScriptEntity;
 import com.main.datacat_agent.service.DatacatAgentService;
 import com.main.datacat_agent.service.DatacatAgentServiceImpl;
-
+import com.main.datacat_agent.service.MysqlConnector;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -34,20 +34,9 @@ public class DatacatAgentApplication implements CommandLineRunner {
 	}
 	@Override
 	public void run(String... args) throws Exception {
-		String q = "SELECT time,nodeID,pointsWrittenOK FROM \"_internal\".\"monitor\".\"httpd\" order by time desc limit 30";
-		QueryResult infQueryResult =  getDatacatAgentService().getInfluxStatus(q);
-		List<Result> infQueryResultList = infQueryResult.getResults();
-		for(Result infQueryResultRow : infQueryResultList){
-			List<Series> test = infQueryResultRow.getSeries();
-			for(Series testRow : test){
-				List<List<Object>> values = testRow.getValues();
-				for(List<Object> value : values){
-					log.info("인플럭스 실행결과 = {}", value.get(2));
-					log.info("\n");
-				}
-			}
-		}
-		
+		MysqlConnector mysqlConnector = new MysqlConnector();
+		String mysqlReturn = mysqlConnector.executeMysql("show databases");
+		System.out.println(mysqlReturn);
 		// while(true){
 		// 	List<ScriptEntity> scriptList = getDatacatAgentService().readScript();
 		// 	for(ScriptEntity scriptEntity : scriptList){
@@ -108,5 +97,21 @@ public class DatacatAgentApplication implements CommandLineRunner {
 		// 	Thread.sleep(1000 * 5); //5초에 한번씩 체크
 		// }
 		 
+	}
+
+	public void executeInfluxQuery(String q){
+		q = "SELECT time,nodeID,pointsWrittenOK FROM \"_internal\".\"monitor\".\"httpd\" order by time desc limit 30";
+		QueryResult infQueryResult =  getDatacatAgentService().getInfluxStatus(q);
+		List<Result> infQueryResultList = infQueryResult.getResults();
+		for(Result infQueryResultRow : infQueryResultList){
+			List<Series> test = infQueryResultRow.getSeries();
+			for(Series testRow : test){
+				List<List<Object>> values = testRow.getValues();
+				for(List<Object> value : values){
+					log.info("인플럭스 실행결과 = {}", value.get(2));
+					log.info("\n");
+				}
+			}
+		}
 	}
 }
