@@ -40,9 +40,9 @@ public class DatacatAgentApplication implements CommandLineRunner {
 		log.info("실행 결과 : "+mysqlReturn);
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		if(!mysqlReturn.equals("0")){//정상
-			getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(1, mysqlReturn, timestamp, 1));
+			getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(1, mysqlReturn, timestamp, 9999));
 		}else{//비정상
-			getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(0, mysqlReturn, timestamp, 1));
+			getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(0, mysqlReturn, timestamp, 9999));
 		}
 		
 		// // while(true){
