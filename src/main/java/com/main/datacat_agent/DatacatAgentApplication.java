@@ -53,7 +53,7 @@ public class DatacatAgentApplication implements CommandLineRunner {
 						}else{//비정상
 							getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(0, mysqlReturn, timestamp, scriptId));
 						}
-					}else{
+					}else if(scriptEntity.getJobId() == 3){
 						log.info("influx 스크립트 : "+ scriptEntity.getCommand());
 						String result = executeInfluxQuery(scriptEntity.getCommand());
 						Timestamp timestamp = new Timestamp(System.currentTimeMillis());
