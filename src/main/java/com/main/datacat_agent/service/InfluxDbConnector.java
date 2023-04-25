@@ -16,20 +16,21 @@ public class InfluxDbConnector {  //연결용 클래스 입니다.
     private final String DB_ID = "admin";
     private final String DB_PWD = "admin";
 
-    public void queryData(String q){
+    public String queryData(String q){
         InfluxDB influxDB = InfluxDBFactory.connect(DB_URL, DB_ID, DB_PWD);
-        
+        String resultValue = "";
         influxDB.setDatabase("isl");
         QueryResult queryResult = influxDB.query(new Query(q));
         List<Result> resultList = queryResult.getResults();
         for(Result result : resultList ){
             for(Series value : result.getSeries()){
                 for(List object : value.getValues()){
-                    System.out.println(object.get(2));
+                    resultValue = object.get(2).toString();
                 }
             }
         }
        
         influxDB.close();
+        return resultValue;
     }
 }

@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.List;
 
+import org.apache.logging.log4j.core.script.Script;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -32,85 +33,99 @@ public class DatacatAgentApplication implements CommandLineRunner {
 		return  new DatacatAgentServiceImpl();
 	}
 	@Override
-	public void run(String... args) throws Exception {
-		String q = "SELECT time,nodeID,pointsWrittenOK FROM \"_internal\".\"monitor\".\"httpd\" order by time desc limit 1";
-		executeInfluxQuery(q);
-		MysqlConnector mysqlConnector = new MysqlConnector();
-		String mysqlReturn = mysqlConnector.executeMysql("SELECT if((TIMESTAMPDIFF(MINUTE, sysdate(),reg_dt)) >= 5, 1,0) AS TIMESTAMPDIFF FROM uep.tb_mntrg_item_raw_data ORDER BY reg_dt desc LIMIT 1;");
-		log.info("실행 결과 : "+mysqlReturn);
-		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-		if(!mysqlReturn.equals("0")){//정상
-			getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(1, mysqlReturn, timestamp, 9999));
-		}else{//비정상
-			getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(0, mysqlReturn, timestamp, 9999));
-		}
+	public void run(String... args) throws Exception {		
 		
-		// // while(true){
+		while(true){
 			List<ScriptEntity> scriptList = getDatacatAgentService().readScript();
 			for(ScriptEntity scriptEntity : scriptList){
 				if(scriptEntity != null){
-					//현재시간 구함
-					timestamp = new Timestamp(System.currentTimeMillis());
-					String strStamp = String.valueOf(timestamp.getTime());
-					String[] scriptCommand = {"/bin/sh", "-c", scriptEntity.getCommand()};
-					log.info("스크립트 log={}", scriptCommand[2]);
-					int scriptId = scriptEntity.getJobId();
-					Timestamp lastExcutionAt = getDatacatAgentService().readScriptExecutionAt(scriptId);
-					StringBuilder scriptResult = new StringBuilder();
-					String result = "";
-					// System.out.println(result);
-					if(lastExcutionAt == null ){
-						/**
-						 * @TODO
-						 * DB(INFLUX/RDS) ,EKS 따라 구분 필요함
-						 */
-						scriptResult = getDatacatAgentService().execShellScript(scriptCommand);
-						result = scriptResult.toString();
-						if(!result.equals("0")){//정상
-							getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(1, result, timestamp, scriptId));
+					if(scriptEntity.getJobId() == 1){
+						executeK8s(scriptEntity);
+					}else if(scriptEntity.getJobId() == 2){
+						MysqlConnector mysqlConnector = new MysqlConnector();
+						String mysqlReturn = mysqlConnector.executeMysql(scriptEntity.getCommand());
+						log.info("실행 결과 : "+mysqlReturn);
+						Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+						if(!mysqlReturn.equals("0")){//정상
+							getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(1, mysqlReturn, timestamp, scriptEntity.getJobId()));
 						}else{//비정상
-							getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(0, result, timestamp, scriptId));
+							getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(0, mysqlReturn, timestamp, scriptEntity.getJobId()));
 						}
-						
 					}else{
-						String lastExecStamp = String.valueOf(lastExcutionAt.getTime());
-						Date lastExecDate = new Date(Long.parseLong(lastExecStamp));
-					
-
-						log.info("실행결과 = {}", result);
-						//스크립트 실행
-						scriptResult = getDatacatAgentService().execShellScript(scriptCommand);
-						result = scriptResult.toString();
-						log.info("실행결과 = {}", result);
-						System.out.println(result);
-						Timestamp result_tmp = Timestamp.valueOf(result);
-						Calendar cal = Calendar.getInstance();
-						cal.setTime(result_tmp);
-						cal.add(Calendar.MINUTE, scriptEntity.getRepeatInterval());
-						result_tmp.setTime(cal.getTime().getTime());
-						System.out.println(result_tmp);
-						log.info("실행결과 = {}", result);
-						log.info("실행결과 + 인터벌 = {}", result_tmp.toString());
+						String result = executeInfluxQuery(scriptEntity.getCommand());
+						Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 						if(!result.equals("0")){//정상
-							getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(1, result, timestamp, scriptId));
+							getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(1, result, timestamp, scriptEntity.getJobId()));
 						}else{//비정상
-							getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(0, result, timestamp, scriptId));
+							getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(0, result, timestamp, scriptEntity.getJobId()));
 						}
-				
-							
 					}
 					
-				}	
 
-			}
+				}
+					
+			}	
+			Thread.sleep(1000 * 5); //5초에 한번씩 체크
+		}
 			// Thread.sleep(1000 * 60 * 5); //5분에 한번씩 체크
-		// 	Thread.sleep(1000 * 5); //5초에 한번씩 체크
-		// }
+			
+		}
 		 
+	
+
+	public String executeInfluxQuery(String q){
+		InfluxDbConnector inConn = new InfluxDbConnector();
+		return inConn.queryData(q);
 	}
 
-	public void executeInfluxQuery(String q){
-		InfluxDbConnector inConn = new InfluxDbConnector();
-		inConn.queryData(q);
+	public void executeK8s(ScriptEntity scriptEntity ){
+
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+	//현재시간 구함
+		timestamp = new Timestamp(System.currentTimeMillis());
+		String strStamp = String.valueOf(timestamp.getTime());
+		String[] scriptCommand = {"/bin/sh", "-c", scriptEntity.getCommand()};
+		log.info("스크립트 log={}", scriptCommand[2]);
+		int scriptId = scriptEntity.getJobId();
+		Timestamp lastExcutionAt = getDatacatAgentService().readScriptExecutionAt(scriptId);
+		StringBuilder scriptResult = new StringBuilder();
+		String result = "";
+		if(lastExcutionAt == null ){ // 최초실행
+			scriptResult = getDatacatAgentService().execShellScript(scriptCommand);
+			result = scriptResult.toString();
+			if(!result.equals("0")){//정상
+				getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(1, result, timestamp, scriptId));
+			}else{//비정상
+				getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(0, result, timestamp, scriptId));
+			}
+		}else{
+			String lastExecStamp = String.valueOf(lastExcutionAt.getTime()); //마지막 실행 시간
+			Date lastExecDate = new Date(Long.parseLong(lastExecStamp));
+		
+
+			log.info("실행결과 = {}", result);
+			//스크립트 실행
+
+			log.info("실행결과 = {}", result);
+			System.out.println(result);
+			Timestamp result_tmp = Timestamp.valueOf(result);
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(lastExecDate);
+			cal.add(Calendar.MINUTE, scriptEntity.getRepeatInterval()); //마지막 실행결과 시간 + 인터벌
+			result_tmp.setTime(cal.getTime().getTime());
+
+			if(cal.getTime().compareTo(result_tmp)>0){
+				scriptResult = getDatacatAgentService().execShellScript(scriptCommand);
+				result = scriptResult.toString();
+				if(!result.equals("0")){//정상
+					getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(1, result, timestamp, scriptId));
+				}else{//비정상
+					getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(0, result, timestamp, scriptId));
+				}
+			}	
+		}
 	}
 }
+
+
+
