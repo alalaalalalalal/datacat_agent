@@ -44,7 +44,7 @@ public class DatacatAgentApplication implements CommandLineRunner {
 					}else if(scriptEntity.getJobId() == 2){
 						MysqlConnector mysqlConnector = new MysqlConnector();
 						String mysqlReturn = mysqlConnector.executeMysql(scriptEntity.getCommand());
-						log.info("실행 결과 : "+mysqlReturn);
+						// log.info("실행 결과 : "+mysqlReturn);
 						Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 						if(!mysqlReturn.equals("0")){//정상
 							getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(1, mysqlReturn, timestamp, scriptEntity.getJobId()));
