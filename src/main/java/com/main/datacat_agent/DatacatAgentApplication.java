@@ -102,12 +102,11 @@ public class DatacatAgentApplication implements CommandLineRunner {
 			String lastExecStamp = String.valueOf(lastExcutionAt.getTime()); //마지막 실행 시간
 			Date lastExecDate = new Date(Long.parseLong(lastExecStamp));
 		
-
+			scriptResult = getDatacatAgentService().execShellScript(scriptCommand);
+			result = scriptResult.toString();
+			
 			log.info("실행결과 = {}", result);
 			//스크립트 실행
-
-			log.info("실행결과 = {}", result);
-			System.out.println(result);
 			Timestamp result_tmp = Timestamp.valueOf(result);
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(lastExecDate);
