@@ -94,9 +94,9 @@ public class DatacatAgentApplication implements CommandLineRunner {
 			result = scriptResult.toString();
 
 			if(!result.equals("0")){//정상
-				getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(1, result, timestamp, scriptId));
+				getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(1, result, timestamp, scriptEntity.getJobId()));
 			}else{//비정상
-				getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(0, result, timestamp, scriptId));
+				getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(0, result, timestamp, scriptEntity.getJobId()));
 			}
 		}else{
 			String lastExecStamp = String.valueOf(lastExcutionAt.getTime()); //마지막 실행 시간
@@ -104,7 +104,7 @@ public class DatacatAgentApplication implements CommandLineRunner {
 		
 			scriptResult = getDatacatAgentService().execShellScript(scriptCommand);
 			result = scriptResult.toString();
-			
+
 			log.info("실행결과 = {}", result);
 			//스크립트 실행
 			Timestamp result_tmp = Timestamp.valueOf(result);
@@ -114,12 +114,11 @@ public class DatacatAgentApplication implements CommandLineRunner {
 			result_tmp.setTime(cal.getTime().getTime());
 
 			if(cal.getTime().compareTo(result_tmp)>0){ //만약 최종시작일 + 인터벌이 현재 시각보다 클경우 (마지막 실행 2시  인터벌 120분 현재시각 4시 30분이면  2시+120분 = 4시 이므로 실행 해야함)
-				scriptResult = getDatacatAgentService().execShellScript(scriptCommand);
-				result = scriptResult.toString();
+
 				if(!result.equals("0")){//정상
-					getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(1, result, timestamp, scriptId));
+					getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(1, result, timestamp, scriptEntity.getJobId()));
 				}else{//비정상
-					getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(0, result, timestamp, scriptId));
+					getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(0, result, timestamp, scriptEntity.getJobId()));
 				}
 			}	
 		}
