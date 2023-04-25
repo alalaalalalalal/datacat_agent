@@ -47,19 +47,21 @@ public class DatacatAgentApplication implements CommandLineRunner {
 						String mysqlReturn = mysqlConnector.executeMysql(scriptEntity.getCommand());
 						// log.info("실행 결과 : "+mysqlReturn);
 						Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+						int scriptId = Long.valueOf(scriptEntity.getPid()).intValue();
 						if(!mysqlReturn.equals("0")){//정상
-							getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(1, mysqlReturn, timestamp, scriptEntity.getJobId()));
+							getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(1, mysqlReturn, timestamp, scriptId));
 						}else{//비정상
-							getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(0, mysqlReturn, timestamp, scriptEntity.getJobId()));
+							getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(0, mysqlReturn, timestamp, scriptId));
 						}
 					}else{
 						log.info("influx 스크립트 : "+ scriptEntity.getCommand());
 						String result = executeInfluxQuery(scriptEntity.getCommand());
 						Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+						int scriptId = Long.valueOf(scriptEntity.getPid()).intValue();
 						if(!result.equals("0")){//정상
-							getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(1, result, timestamp, scriptEntity.getJobId()));
+							getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(1, result, timestamp, scriptId));
 						}else{//비정상
-							getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(0, result, timestamp, scriptEntity.getJobId()));
+							getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(0, result, timestamp, scriptId));
 						}
 					}
 					
