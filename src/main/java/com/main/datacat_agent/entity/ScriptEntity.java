@@ -42,8 +42,8 @@ public class ScriptEntity {
     @Column(name="comment")
     private String comment;
 
-    @Column(name="lastResult")
-    private String lastResult;
+    // @Column(name="lastResult")
+    // private String lastResult;
 
     @Column(name="usable")
     private int usable;
@@ -75,7 +75,7 @@ public class ScriptEntity {
 
 
     
-    public ScriptEntity(long id, String program, Timestamp updatedAt, Timestamp createdAt, int jobId, String hostname, String command, String comment, String lastResult, int usable, int repeatInterval, int updatedById, int createdById, int regionId, int managerId, int managerGroupId, Time startTime, Time endTime) {
+    public ScriptEntity(long id, String program, Timestamp updatedAt, Timestamp createdAt, int jobId, String hostname, String command, String comment, int usable, int repeatInterval, int updatedById, int createdById, int regionId, int managerId, int managerGroupId, Time startTime, Time endTime) {
         this.pid = id;
         this.program = program;
         this.updatedAt = updatedAt;
@@ -84,7 +84,7 @@ public class ScriptEntity {
         this.hostname = hostname;
         this.command = command;
         this.comment = comment;
-        this.lastResult = lastResult;
+        // this.lastResult = lastResult;
         this.usable = usable;
         this.repeatInterval = repeatInterval;
         this.updatedById = updatedById;
