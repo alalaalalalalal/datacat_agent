@@ -115,20 +115,23 @@ public class DatacatAgentApplication implements CommandLineRunner {
 
 			log.info("실행결과 = {}", result);
 			//스크립트 실행
-			Timestamp result_tmp = Timestamp.valueOf(result);
+			Timestamp result_tmp = new Timestamp(System.currentTimeMillis());// Timestamp.valueOf(result);
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(lastExecDate);
 			cal.add(Calendar.MINUTE, scriptEntity.getRepeatInterval()); //마지막 실행결과 시간 + 인터벌
-			result_tmp.setTime(cal.getTime().getTime());
-
-			// if(cal.getTime().compareTo(result_tmp)>0){ //만약 최종시작일 + 인터벌이 현재 시각보다 클경우 (마지막 실행 2시  인터벌 120분 현재시각 4시 30분이면  2시+120분 = 4시 이므로 실행 해야함)
-				log.info("스크립트 id={}",scriptId);
+			// result_tmp.setTime(cal.getTime().getTime());
+			log.info("최종 실행 시간 테스트 : " + cal.getTime().toString());
+			log.info("현재 시간 테스트 : " + result_tmp.toString());
+			if(cal.getTime().compareTo(result_tmp)>0){ //만약 최종시작일 + 인터벌이 현재 시각보다 클경우 (마지막 실행 2시  인터벌 120분 현재시각 4시 30분이면  2시+120분 = 4시 이므로 실행 해야함)
+				log.info("1번로직");
 				if(!result.equals("0")){//정상
 					getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(1, result, timestamp, scriptId));
 				}else{//비정상
 					getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(0, result, timestamp, scriptId));
 				}
-			// }	
+			}else{
+				log.info("2번로직");
+			}
 		}
 	}
 }
