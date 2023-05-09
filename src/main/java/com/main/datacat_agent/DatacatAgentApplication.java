@@ -87,7 +87,6 @@ public class DatacatAgentApplication implements CommandLineRunner {
 
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 	//현재시간 구함
-		timestamp = new Timestamp(System.currentTimeMillis());
 		String[] scriptCommand = {"/bin/sh", "-c", "sudo ssh -i ~/SIT_DEV_DP_KEY_DBSUB_Virginia.pem ec2-user@10.157.16.71 \"influx -database isl -execute 'SELECT pointsWrittenOK FROM \"_internal\".\"monitor\".\"httpd\" order by time desc limit 2'\" | head -4| tail -1 | awk '{ print $2}'"};
 		// sudo ssh -i SIT_DEV_DP_KEY_DBSUB_Virginia.pem ec2-user@10.157.16.71 "influx -database isl -execute 'SELECT pointsWrittenOK FROM \"_internal\".\"monitor\".\"httpd\" order by time desc limit 2'" | head -4| tail -1 | awk '{ print $2}'
 		// String[] scriptCommand = {"/bin/sh", "-c", "mysql -h dev-dp-db1-cluster-virginia-instance-1.c8vihicq2w3y.us-east-1.rds.amazonaws.com -N -u sithome -psit0911! -P 33060 -e \"SELECT if((TIMESTAMPDIFF(MINUTE, sysdate(),reg_dt)) >= 5, 1,0) AS TIMESTAMPDIFF FROM uep.tb_mntrg_item_raw_data ORDER BY reg_dt desc LIMIT 1;\""};
@@ -115,14 +114,14 @@ public class DatacatAgentApplication implements CommandLineRunner {
 
 			log.info("실행결과 = {}", result);
 			//스크립트 실행
-			Timestamp result_tmp = new Timestamp(System.currentTimeMillis());// Timestamp.valueOf(result);
+			timestamp = new Timestamp(System.currentTimeMillis());
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(lastExecDate);
 			cal.add(Calendar.MINUTE, scriptEntity.getRepeatInterval()); //마지막 실행결과 시간 + 인터벌
 			// result_tmp.setTime(cal.getTime().getTime());
 			log.info("최종 실행 시간 테스트 : " + cal.getTime().toString());
-			log.info("현재 시간 테스트 : " + result_tmp.toString());
-			if(cal.getTime().compareTo(result_tmp)>0){ //만약 최종시작일 + 인터벌이 현재 시각보다 클경우 (마지막 실행 2시  인터벌 120분 현재시각 4시 30분이면  2시+120분 = 4시 이므로 실행 해야함)
+			log.info("현재 시간 테스트 : " + timestamp.toString());
+			if(cal.getTime().compareTo(timestamp)>0){ //만약 최종시작일 + 인터벌이 현재 시각보다 클경우 (마지막 실행 2시  인터벌 120분 현재시각 4시 30분이면  2시+120분 = 4시 이므로 실행 해야함)
 				log.info("1번로직");
 				if(!result.equals("0")){//정상
 					getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(1, result, timestamp, scriptId));

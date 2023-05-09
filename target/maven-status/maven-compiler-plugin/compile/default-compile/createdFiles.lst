@@ -9,6 +9,7 @@ com/main/datacat_agent/repository/JobRepository.class
 com/SSH2AWS.class
 com/main/datacat_agent/entity/CategoryMainEntity.class
 com/main/datacat_agent/repository/ExecutionLogRepository.class
+com/main/datacat_agent/TEST.class
 com/main/datacat_agent/entity/MessageEntity.class
 com/main/datacat_agent/repository/CategorySubRepository.class
 com/main/datacat_agent/repository/CategoryMainRepository.class
