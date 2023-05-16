@@ -70,7 +70,7 @@ public class DatacatAgentApplication implements CommandLineRunner {
 				}
 					
 			}	
-			Thread.sleep(1000 * 5); //5초에 한번씩 체크
+			// Thread.sleep(1000 * 5); //5초에 한번씩 체크
 		}
 			// Thread.sleep(1000 * 60 * 5); //5분에 한번씩 체크
 			
@@ -87,7 +87,8 @@ public class DatacatAgentApplication implements CommandLineRunner {
 
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 	//현재시간 구함
-		String[] scriptCommand = {"/bin/sh", "-c", "sudo ssh -i ~/SIT_DEV_DP_KEY_DBSUB_Virginia.pem ec2-user@10.157.16.71 \"influx -database isl -execute 'SELECT pointsWrittenOK FROM \"_internal\".\"monitor\".\"httpd\" order by time desc limit 2'\" | head -4| tail -1 | awk '{ print $2}'"};
+		String[] scriptCommand = {"/bin/sh", "-c", scriptEntity.getCommand() };
+		// String[] scriptCommand = {"/bin/sh", "-c", "sudo ssh -i ~/SIT_DEV_DP_KEY_DBSUB_Virginia.pem ec2-user@10.157.16.71 \"influx -database isl -execute 'SELECT pointsWrittenOK FROM \"_internal\".\"monitor\".\"httpd\" order by time desc limit 2'\" | head -4| tail -1 | awk '{ print $2}'"};
 		// sudo ssh -i SIT_DEV_DP_KEY_DBSUB_Virginia.pem ec2-user@10.157.16.71 "influx -database isl -execute 'SELECT pointsWrittenOK FROM \"_internal\".\"monitor\".\"httpd\" order by time desc limit 2'" | head -4| tail -1 | awk '{ print $2}'
 		// String[] scriptCommand = {"/bin/sh", "-c", "mysql -h dev-dp-db1-cluster-virginia-instance-1.c8vihicq2w3y.us-east-1.rds.amazonaws.com -N -u sithome -psit0911! -P 33060 -e \"SELECT if((TIMESTAMPDIFF(MINUTE, sysdate(),reg_dt)) >= 5, 1,0) AS TIMESTAMPDIFF FROM uep.tb_mntrg_item_raw_data ORDER BY reg_dt desc LIMIT 1;\""};
 		log.info("스크립트 log={}", scriptCommand[2]);
