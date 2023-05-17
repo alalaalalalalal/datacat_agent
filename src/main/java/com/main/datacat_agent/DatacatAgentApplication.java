@@ -125,7 +125,7 @@ public class DatacatAgentApplication implements CommandLineRunner {
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(lastExecDate);
 			cal.add(Calendar.MINUTE, scriptEntity.getRepeatInterval()); //마지막 실행결과 시간 + 인터벌
-			if(cal.getTime().compareTo(timestamp)>=0){ //만약 최종시작일 + 인터벌이 현재 시각보다 클경우 (마지막 실행 2시  인터벌 120분 현재시각 4시 30분이면  2시+120분 = 4시 이므로 실행 해야함)
+			if(cal.getTime().compareTo(timestamp)<=0){ //만약 최종시작일 + 인터벌이 현재 시각보다 클경우 (마지막 실행 2시  인터벌 120분 현재시각 4시 30분이면  2시+120분 = 4시 이므로 실행 해야함)
 				scriptResult = getDatacatAgentService().execShellScript(scriptCommand);
 				result = scriptResult.toString();
 
