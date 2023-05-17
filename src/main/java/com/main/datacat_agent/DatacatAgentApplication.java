@@ -47,6 +47,7 @@ public class DatacatAgentApplication implements CommandLineRunner {
 					String endTime = scriptEntity.getEndTime().toString().replace(":", "");
 
 					if(Integer.valueOf(hour) >= Integer.valueOf(starTtime) && Integer.valueOf(hour) <= Integer.valueOf(endTime)){
+						log.info(hour + " / " + starTtime + " / " + endTime);
 						log.info("id : " + scriptEntity.getPid());
 						executeK8s(scriptEntity);
 					}
