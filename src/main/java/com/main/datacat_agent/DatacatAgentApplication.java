@@ -2,6 +2,7 @@ package com.main.datacat_agent;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
@@ -39,7 +40,16 @@ public class DatacatAgentApplication implements CommandLineRunner {
 			List<ScriptEntity> scriptList = getDatacatAgentService().readScript();
 			for(ScriptEntity scriptEntity : scriptList){
 				if(scriptEntity != null){
-					executeK8s(scriptEntity);
+					Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+					SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+					String hour = sdf.format(timestamp).replace(":", "");
+					String starTtime = scriptEntity.getStartTime().toString().replace(":", "");
+					String endTime = scriptEntity.getEndTime().toString().replace(":", "");
+
+					if(Integer.valueOf(hour) >= Integer.valueOf(starTtime) && Integer.valueOf(hour) <= Integer.valueOf(endTime)){
+						log.info("id : " + scriptEntity.getPid());
+						executeK8s(scriptEntity);
+					}
 					// if(scriptEntity.getJobId() == 1){
 					// 	executeK8s(scriptEntity);
 					// }else if(scriptEntity.getJobId() == 2){
@@ -85,7 +95,8 @@ public class DatacatAgentApplication implements CommandLineRunner {
 
 	public void executeK8s(ScriptEntity scriptEntity ){
 
-		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());		
+
 	//현재시간 구함
 		String[] scriptCommand = {"/bin/sh", "-c", scriptEntity.getCommand() };
 		// String[] scriptCommand = {"/bin/sh", "-c", "sudo ssh -i ~/SIT_DEV_DP_KEY_DBSUB_Virginia.pem ec2-user@10.157.16.71 \"influx -database isl -execute 'SELECT pointsWrittenOK FROM \"_internal\".\"monitor\".\"httpd\" order by time desc limit 2'\" | head -4| tail -1 | awk '{ print $2}'"};
