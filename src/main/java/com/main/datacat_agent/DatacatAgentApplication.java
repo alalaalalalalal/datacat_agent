@@ -120,17 +120,17 @@ public class DatacatAgentApplication implements CommandLineRunner {
 		}else{
 			String lastExecStamp = String.valueOf(lastExcutionAt.getTime()); //마지막 실행 시간
 			Date lastExecDate = new Date(Long.parseLong(lastExecStamp));
-		
-			scriptResult = getDatacatAgentService().execShellScript(scriptCommand);
-			result = scriptResult.toString();
-
-			log.info("실행결과 = {}", result);
 			//스크립트 실행
 			timestamp = new Timestamp(System.currentTimeMillis());
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(lastExecDate);
 			cal.add(Calendar.MINUTE, scriptEntity.getRepeatInterval()); //마지막 실행결과 시간 + 인터벌
-			if(cal.getTime().compareTo(timestamp)<=0){ //만약 최종시작일 + 인터벌이 현재 시각보다 클경우 (마지막 실행 2시  인터벌 120분 현재시각 4시 30분이면  2시+120분 = 4시 이므로 실행 해야함)
+			if(cal.getTime().compareTo(timestamp)>=0){ //만약 최종시작일 + 인터벌이 현재 시각보다 클경우 (마지막 실행 2시  인터벌 120분 현재시각 4시 30분이면  2시+120분 = 4시 이므로 실행 해야함)
+				scriptResult = getDatacatAgentService().execShellScript(scriptCommand);
+				result = scriptResult.toString();
+
+				log.info("실행결과 = {}", result);
+			
 				if(!result.equals("0")){//정상
 					getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(1, result, timestamp, scriptId));
 				}else{//비정상
