@@ -80,7 +80,7 @@ public class DatacatAgentApplication implements CommandLineRunner {
 				}
 					
 			}	
-			// Thread.sleep(1000 * 5); //5초에 한번씩 체크
+			Thread.sleep(1000 * 5); //5초에 한번씩 체크
 		}
 			// Thread.sleep(1000 * 60 * 5); //5분에 한번씩 체크
 			
