@@ -51,31 +51,6 @@ public class DatacatAgentApplication implements CommandLineRunner {
 						log.info("id : " + scriptEntity.getPid());
 						executeK8s(scriptEntity);
 					// }
-					// if(scriptEntity.getJobId() == 1){
-					// 	executeK8s(scriptEntity);
-					// }else if(scriptEntity.getJobId() == 2){
-					// 	MysqlConnector mysqlConnector = new MysqlConnector();
-					// 	log.info("mysql 스크립트 : "+ scriptEntity.getCommand());
-					// 	String mysqlReturn = mysqlConnector.executeMysql(scriptEntity.getCommand());
-					// 	// log.info("실행 결과 : "+mysqlReturn);
-					// 	Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-					// 	int scriptId = Long.valueOf(scriptEntity.getPid()).intValue();
-					// 	if(!mysqlReturn.equals("0")){//정상
-					// 		getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(1, mysqlReturn, timestamp, scriptId));
-					// 	}else{//비정상
-					// 		getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(0, mysqlReturn, timestamp, scriptId));
-					// 	}
-					// }else if(scriptEntity.getJobId() == 3){
-					// 	log.info("influx 스크립트 : "+ scriptEntity.getCommand());
-					// 	String result = executeInfluxQuery(scriptEntity.getCommand());
-					// 	Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-					// 	int scriptId = Long.valueOf(scriptEntity.getPid()).intValue();
-					// 	if(!result.equals("0")){//정상
-					// 		getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(1, result, timestamp, scriptId));
-					// 	}else{//비정상
-					// 		getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(0, result, timestamp, scriptId));
-					// 	}
-					// }
 					
 
 				}
@@ -112,13 +87,17 @@ public class DatacatAgentApplication implements CommandLineRunner {
 		if(lastExcutionAt == null ){ // 최초실행
 			scriptResult = getDatacatAgentService().execShellScript(scriptCommand);
 			result = scriptResult.toString();
-
-			if(!result.equals("0")){//정상
-				getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(1, result, timestamp, scriptId));
-			}else{//비정상
+			//true 가 0 false 가 0 아닌것
+			if(!result.equals("0")){//비정상
 				getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(0, result, timestamp, scriptId));
+			}else{//정상
+				getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(1, result, timestamp, scriptId));
 			}
 		}else{
+			/**
+			 * @@TODO
+			 * result 길이체크해서 에러 안나게 체크 필요함.
+			 */
 			String lastExecStamp = String.valueOf(lastExcutionAt.getTime()); //마지막 실행 시간
 			Date lastExecDate = new Date(Long.parseLong(lastExecStamp));
 			//스크립트 실행
@@ -132,10 +111,10 @@ public class DatacatAgentApplication implements CommandLineRunner {
 
 				log.info("실행결과 = {}", result);
 			
-				if(!result.equals("0")){//정상
-					getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(1, result, timestamp, scriptId));
-				}else{//비정상
+				if(!result.equals("0")){//비정상
 					getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(0, result, timestamp, scriptId));
+				}else{//정상
+					getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(1, result, timestamp, scriptId));
 				}
 			// }
 		}
