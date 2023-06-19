@@ -41,6 +41,7 @@ public class DatacatAgentApplication implements CommandLineRunner {
 			List<ScriptEntity> scriptList = getDatacatAgentService().readScript();
 			for(ScriptEntity scriptEntity : scriptList){
 				if(scriptEntity != null){
+					log.info("스크립트 리드 성공");
 					Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 					SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 					String hour = sdf.format(timestamp).replace(":", "");
@@ -48,9 +49,12 @@ public class DatacatAgentApplication implements CommandLineRunner {
 					String endTime = scriptEntity.getEndTime().toString().replace(":", "");
 
 					if(Integer.valueOf(hour) >= Integer.valueOf(starTtime) && Integer.valueOf(hour) <= Integer.valueOf(endTime)){ // 언제부터 언제까지 실행해야 하는지 체크
+						log.info("스크립트 실행 성공");
 						log.info(hour + " / " + starTtime + " / " + endTime);
 						log.info("id : " + scriptEntity.getPid());
 						executeK8s(scriptEntity);
+					}else{
+						log.info("스크립트 시간 체크로 제외됨");
 					}
 				}					
 			}	
