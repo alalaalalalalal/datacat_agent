@@ -6,7 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
-import org.apache.logging.log4j.core.script.Script;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,8 +16,6 @@ import com.main.datacat_agent.entity.ScriptEntity;
 import com.main.datacat_agent.service.DatacatAgentService;
 import com.main.datacat_agent.service.DatacatAgentServiceImpl;
 import com.main.datacat_agent.service.InfluxDbConnector;
-import com.main.datacat_agent.service.MysqlConnector;
-
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -89,9 +86,9 @@ public class DatacatAgentApplication implements CommandLineRunner {
 			result = scriptResult.toString();
 			//true 가 0 false 가 0 아닌것
 			if(!result.equals("0") || result.length() > 1){//비정상
-				getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(0, result.length() > 1 ? "toolong" : result , timestamp, scriptId));
+				getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(1, result.length() > 1 ? "toolong" : result , timestamp, scriptId));
 			}else{//정상
-				getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(1, result, timestamp, scriptId));
+				getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(0, result, timestamp, scriptId));
 			}
 		}else{
 			String lastExecStamp = String.valueOf(lastExcutionAt.getTime()); //마지막 실행 시간
@@ -108,9 +105,9 @@ public class DatacatAgentApplication implements CommandLineRunner {
 				log.info("실행결과 = {}", result);
 			
 				if(!result.equals("0") || result.length() > 1){//비정상, 결과가 0이 아닌것 전부비정상
-					getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(0, result.length() > 1 ? "toolong" : result, timestamp, scriptId));
+					getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(1, result.length() > 1 ? "toolong" : result, timestamp, scriptId));
 				}else{//정상
-					getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(1, result, timestamp, scriptId));
+					getDatacatAgentService().insertScriptResult( new ExecutionLogEntity(0, result, timestamp, scriptId));
 				}
 			}
 		}
