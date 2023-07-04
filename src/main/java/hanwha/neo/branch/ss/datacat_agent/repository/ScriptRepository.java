@@ -11,5 +11,5 @@ public interface ScriptRepository extends JpaRepository<ScriptEntity, Long> {
     // managerId, managerGroupId FROM script s WHERE s.usable = :usable")
     List<ScriptEntity> findByUsable(String usable);
 
-    List<ScriptEntity> findByHostnameStartsWith(String hostname);
+    List<ScriptEntity> findByHostnameContains(String hostname);
 }

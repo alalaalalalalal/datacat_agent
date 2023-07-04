@@ -78,7 +78,7 @@ public class DatacatAgentApplication implements CommandLineRunner {
 		}
 	}
 
-	public void executeK8s(ScriptEntity scriptEntity, String env) {
+	public void executeK8s(ScriptEntity scriptEntity, String env) throws RemoteException {
 
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
