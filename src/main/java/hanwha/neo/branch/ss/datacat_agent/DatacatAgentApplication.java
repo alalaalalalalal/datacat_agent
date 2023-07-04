@@ -37,11 +37,6 @@ public class DatacatAgentApplication implements CommandLineRunner {
 	private final String sender = "justwon323@hanwha.com";
 
 	@Bean
-	public MailSender getMailSender() {
-		return new MailSender();
-	}
-
-	@Bean
 	public DatacatAgentService getDatacatAgentService() {
 		return new DatacatAgentServiceImpl();
 	}
@@ -126,7 +121,8 @@ public class DatacatAgentApplication implements CommandLineRunner {
 					receivers[0].setRecvEmail("justwon323@hanwha.com");
 					String content = env + " 환경에서" + timestamp.toString() + " 에 \n" + scriptEntity.getCommand()
 							+ "\n 실행시 비정상 값 검출됨";
-					getMailSender().sendTextMail(MailEndpoint, "확인요망 " + timestamp.toString(), sender, receivers,
+					MailSender mailSender = new MailSender();
+					mailSender.sendTextMail(MailEndpoint, "확인요망 " + timestamp.toString(), sender, receivers,
 							content);
 				
 					getDatacatAgentService().insertScriptResult(
