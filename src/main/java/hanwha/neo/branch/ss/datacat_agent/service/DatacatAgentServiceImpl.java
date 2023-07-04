@@ -43,7 +43,7 @@ public class DatacatAgentServiceImpl implements DatacatAgentService {
 
     @Override
     public List<ScriptEntity> readScript(String hostname) {
-        return scriptRepository.findByHostnameContains(hostname);
+        return scriptRepository.findByHostnameContaining(hostname);
     }
 
     @Override
