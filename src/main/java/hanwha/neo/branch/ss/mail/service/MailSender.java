@@ -9,7 +9,7 @@ import hanwha.neo.branch.ss.mail.vo.WsRecipient;
 public class MailSender {
 
 	public String sendTextMail(String endpoint, String subject, String sender, WsRecipient[] receivers,
-			String content) throws RemoteException {
+			String content) throws RemoteException  {
 
 		// String endpoint =
 		// "http://hcom.circle.hanwha.com/api/axis/services/MailService?wsdl";
@@ -28,14 +28,16 @@ public class MailSender {
 		// receivers[0].setSeqID(1);
 		// receivers[0].setRecvType("TO");
 		// receivers[0].setRecvEmail("justwon323@hanwha.com");
-		String resultMsg = "";
+		
 		try {
-			resultMsg = proxy.sendMISMail(content, mailInfo, receivers, null);
-			System.out.println("result :" + resultMsg);
-		} catch (WsException e) {
+			String resultMsg = proxy.sendMISMail(content, mailInfo, receivers, null);
+			return resultMsg;
+		} catch (WsException e){
+			e.printStackTrace();
 			System.out.println("error");
+			return null;
 		}
-		return resultMsg;
+		
 
 	}
 

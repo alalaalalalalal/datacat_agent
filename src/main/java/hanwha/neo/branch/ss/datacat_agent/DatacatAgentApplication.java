@@ -118,20 +118,17 @@ public class DatacatAgentApplication implements CommandLineRunner {
 
 				if (!result.equals("0") || result.length() > 1) {// 비정상, 결과가 0이 아닌것 전부비정상
 					// 비정상시 메일 전송
-					try {
-						WsRecipient[] receivers = new WsRecipient[1];
-						receivers[0] = new WsRecipient();
-						receivers[0].setSeqID(1);
-						receivers[0].setRecvType("TO");
-						receivers[0].setRecvEmail("justwon323@hanwha.com");
-						String content = env + " 환경에서" + timestamp.toString() + " 에 \n" + scriptEntity.getCommand()
-								+ "\n 실행시 비정상 값 검출됨";
-						getMailSender().sendTextMail(MailEndpoint, "확인요망 " + timestamp.toString(), sender, receivers,
-								content);
-					} catch (RemoteException e) {
-
-						e.printStackTrace();
-					}
+				
+					WsRecipient[] receivers = new WsRecipient[1];
+					receivers[0] = new WsRecipient();
+					receivers[0].setSeqID(1);
+					receivers[0].setRecvType("TO");
+					receivers[0].setRecvEmail("justwon323@hanwha.com");
+					String content = env + " 환경에서" + timestamp.toString() + " 에 \n" + scriptEntity.getCommand()
+							+ "\n 실행시 비정상 값 검출됨";
+					getMailSender().sendTextMail(MailEndpoint, "확인요망 " + timestamp.toString(), sender, receivers,
+							content);
+				
 					getDatacatAgentService().insertScriptResult(
 							new ExecutionLogEntity(1, result.length() > 1 ? "toolong" : result, timestamp, scriptId));
 				} else {// 정상
