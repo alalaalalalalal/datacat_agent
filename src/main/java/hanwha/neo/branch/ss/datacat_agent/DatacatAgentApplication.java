@@ -7,6 +7,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,7 +20,7 @@ import hanwha.neo.branch.ss.datacat_agent.service.DatacatAgentService;
 import hanwha.neo.branch.ss.datacat_agent.service.DatacatAgentServiceImpl;
 import hanwha.neo.branch.ss.mail.service.MailSender;
 import hanwha.neo.branch.ss.mail.vo.WsRecipient;
-import lombok.extern.slf4j.Slf4j;
+
 
 /**
  * @author 유용원
