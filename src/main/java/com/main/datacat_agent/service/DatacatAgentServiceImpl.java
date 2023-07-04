@@ -1,5 +1,4 @@
 
-
 package com.main.datacat_agent.service;
 
 import java.io.BufferedReader;
@@ -19,7 +18,7 @@ import com.main.datacat_agent.repository.UserRepository;
 
 public class DatacatAgentServiceImpl implements DatacatAgentService {
     @Autowired
-    ExecutionLogRepository executionLogRepository;    
+    ExecutionLogRepository executionLogRepository;
     @Autowired
     MessageRepository messageRepository;
     @Autowired
@@ -27,31 +26,25 @@ public class DatacatAgentServiceImpl implements DatacatAgentService {
     @Autowired
     ScriptRepository scriptRepository;
 
-
     @Override
     public Object insertScriptResult(ExecutionLogEntity executionLogEntity) {
         return executionLogRepository.save(executionLogEntity);
     }
-
 
     @Override
     public Object insertMessage(MessageEntity messageEntity) {
         return messageRepository.save(messageEntity);
     }
 
-
     @Override
     public Object insertUser(UserEntity UserEntity) {
         return userRepository.save(UserEntity);
     }
 
-
     @Override
-    public List<ScriptEntity> readScript() {   
-        return scriptRepository.findAll();
+    public List<ScriptEntity> readScript(String hostname) {
+        return scriptRepository.findByHostnameStartsWith(hostname);
     }
-
-
 
     @Override
     public StringBuilder execShellScript(String[] script) {
@@ -76,23 +69,20 @@ public class DatacatAgentServiceImpl implements DatacatAgentService {
             e.printStackTrace();
             return null;
         }
-        
-    }
 
+    }
 
     @Override
     public Timestamp readScriptExecutionAt(int scriptId) {
         return executionLogRepository.findLastExecutionAtByScriptId(scriptId);
-        
-    }
 
+    }
 
     @Override
     public void registerScriptSchedule(List<ScriptEntity> scriptList) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'registerScriptSchedule'");
     }
-
 
     @Override
     public String getSSHResponse(String source) {
