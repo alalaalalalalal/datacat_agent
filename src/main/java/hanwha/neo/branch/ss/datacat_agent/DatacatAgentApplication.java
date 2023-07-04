@@ -44,8 +44,9 @@ public class DatacatAgentApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		if (args == null || args.length == 0) {
-			System.out.println("인자 전달이 필요 합니다. ex: us-dev (미국 개발계)");
+			log.info("인자 전달이 필요 합니다. ex: us-dev (미국 개발계)");
 		} else {
+			log.info("인자 확인" + args[0]);
 			while (true) {
 				List<ScriptEntity> scriptList = getDatacatAgentService().readScript(args[0]);
 				for (ScriptEntity scriptEntity : scriptList) {
