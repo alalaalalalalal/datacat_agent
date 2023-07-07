@@ -33,7 +33,7 @@ public class WsRecipient  implements java.io.Serializable {
 
     /**
      * Gets the dept value for this WsRecipient.
-     * 
+     *
      * @return dept
      */
     public boolean isDept() {
@@ -43,7 +43,7 @@ public class WsRecipient  implements java.io.Serializable {
 
     /**
      * Sets the dept value for this WsRecipient.
-     * 
+     *
      * @param dept
      */
     public void setDept(boolean dept) {
@@ -53,7 +53,7 @@ public class WsRecipient  implements java.io.Serializable {
 
     /**
      * Gets the recvEmail value for this WsRecipient.
-     * 
+     *
      * @return recvEmail
      */
     public java.lang.String getRecvEmail() {
@@ -63,7 +63,7 @@ public class WsRecipient  implements java.io.Serializable {
 
     /**
      * Sets the recvEmail value for this WsRecipient.
-     * 
+     *
      * @param recvEmail
      */
     public void setRecvEmail(java.lang.String recvEmail) {
@@ -73,7 +73,7 @@ public class WsRecipient  implements java.io.Serializable {
 
     /**
      * Gets the recvType value for this WsRecipient.
-     * 
+     *
      * @return recvType
      */
     public java.lang.String getRecvType() {
@@ -83,7 +83,7 @@ public class WsRecipient  implements java.io.Serializable {
 
     /**
      * Sets the recvType value for this WsRecipient.
-     * 
+     *
      * @param recvType
      */
     public void setRecvType(java.lang.String recvType) {
@@ -93,7 +93,7 @@ public class WsRecipient  implements java.io.Serializable {
 
     /**
      * Gets the seqID value for this WsRecipient.
-     * 
+     *
      * @return seqID
      */
     public int getSeqID() {
@@ -103,7 +103,7 @@ public class WsRecipient  implements java.io.Serializable {
 
     /**
      * Sets the seqID value for this WsRecipient.
-     * 
+     *
      * @param seqID
      */
     public void setSeqID(int seqID) {
@@ -111,7 +111,8 @@ public class WsRecipient  implements java.io.Serializable {
     }
 
     private java.lang.Object __equalsCalc = null;
-    public synchronized boolean equals(java.lang.Object obj) {
+    @Override
+	public synchronized boolean equals(java.lang.Object obj) {
         if (!(obj instanceof WsRecipient)) return false;
         WsRecipient other = (WsRecipient) obj;
         if (obj == null) return false;
@@ -121,12 +122,12 @@ public class WsRecipient  implements java.io.Serializable {
         }
         __equalsCalc = obj;
         boolean _equals;
-        _equals = true && 
+        _equals = true &&
             this.dept == other.isDept() &&
-            ((this.recvEmail==null && other.getRecvEmail()==null) || 
+            ((this.recvEmail==null && other.getRecvEmail()==null) ||
              (this.recvEmail!=null &&
               this.recvEmail.equals(other.getRecvEmail()))) &&
-            ((this.recvType==null && other.getRecvType()==null) || 
+            ((this.recvType==null && other.getRecvType()==null) ||
              (this.recvType!=null &&
               this.recvType.equals(other.getRecvType()))) &&
             this.seqID == other.getSeqID();
@@ -135,7 +136,8 @@ public class WsRecipient  implements java.io.Serializable {
     }
 
     private boolean __hashCodeCalc = false;
-    public synchronized int hashCode() {
+    @Override
+	public synchronized int hashCode() {
         if (__hashCodeCalc) {
             return 0;
         }
@@ -196,10 +198,10 @@ public class WsRecipient  implements java.io.Serializable {
      * Get Custom Serializer
      */
     public static org.apache.axis.encoding.Serializer getSerializer(
-           java.lang.String mechType, 
-           java.lang.Class _javaType,  
+           java.lang.String mechType,
+           java.lang.Class _javaType,
            javax.xml.namespace.QName _xmlType) {
-        return 
+        return
           new  org.apache.axis.encoding.ser.BeanSerializer(
             _javaType, _xmlType, typeDesc);
     }
@@ -208,10 +210,10 @@ public class WsRecipient  implements java.io.Serializable {
      * Get Custom Deserializer
      */
     public static org.apache.axis.encoding.Deserializer getDeserializer(
-           java.lang.String mechType, 
-           java.lang.Class _javaType,  
+           java.lang.String mechType,
+           java.lang.Class _javaType,
            javax.xml.namespace.QName _xmlType) {
-        return 
+        return
           new  org.apache.axis.encoding.ser.BeanDeserializer(
             _javaType, _xmlType, typeDesc);
     }

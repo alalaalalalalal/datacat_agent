@@ -25,7 +25,7 @@ public class WsMailStatus  implements java.io.Serializable {
 
     /**
      * Gets the delivery value for this WsMailStatus.
-     * 
+     *
      * @return delivery
      */
     public boolean isDelivery() {
@@ -35,7 +35,7 @@ public class WsMailStatus  implements java.io.Serializable {
 
     /**
      * Sets the delivery value for this WsMailStatus.
-     * 
+     *
      * @param delivery
      */
     public void setDelivery(boolean delivery) {
@@ -45,7 +45,7 @@ public class WsMailStatus  implements java.io.Serializable {
 
     /**
      * Gets the mailKey value for this WsMailStatus.
-     * 
+     *
      * @return mailKey
      */
     public java.lang.String getMailKey() {
@@ -55,7 +55,7 @@ public class WsMailStatus  implements java.io.Serializable {
 
     /**
      * Sets the mailKey value for this WsMailStatus.
-     * 
+     *
      * @param mailKey
      */
     public void setMailKey(java.lang.String mailKey) {
@@ -63,7 +63,8 @@ public class WsMailStatus  implements java.io.Serializable {
     }
 
     private java.lang.Object __equalsCalc = null;
-    public synchronized boolean equals(java.lang.Object obj) {
+    @Override
+	public synchronized boolean equals(java.lang.Object obj) {
         if (!(obj instanceof WsMailStatus)) return false;
         WsMailStatus other = (WsMailStatus) obj;
         if (obj == null) return false;
@@ -73,9 +74,9 @@ public class WsMailStatus  implements java.io.Serializable {
         }
         __equalsCalc = obj;
         boolean _equals;
-        _equals = true && 
+        _equals = true &&
             this.delivery == other.isDelivery() &&
-            ((this.mailKey==null && other.getMailKey()==null) || 
+            ((this.mailKey==null && other.getMailKey()==null) ||
              (this.mailKey!=null &&
               this.mailKey.equals(other.getMailKey())));
         __equalsCalc = null;
@@ -83,7 +84,8 @@ public class WsMailStatus  implements java.io.Serializable {
     }
 
     private boolean __hashCodeCalc = false;
-    public synchronized int hashCode() {
+    @Override
+	public synchronized int hashCode() {
         if (__hashCodeCalc) {
             return 0;
         }
@@ -128,10 +130,10 @@ public class WsMailStatus  implements java.io.Serializable {
      * Get Custom Serializer
      */
     public static org.apache.axis.encoding.Serializer getSerializer(
-           java.lang.String mechType, 
-           java.lang.Class _javaType,  
+           java.lang.String mechType,
+           java.lang.Class _javaType,
            javax.xml.namespace.QName _xmlType) {
-        return 
+        return
           new  org.apache.axis.encoding.ser.BeanSerializer(
             _javaType, _xmlType, typeDesc);
     }
@@ -140,10 +142,10 @@ public class WsMailStatus  implements java.io.Serializable {
      * Get Custom Deserializer
      */
     public static org.apache.axis.encoding.Deserializer getDeserializer(
-           java.lang.String mechType, 
-           java.lang.Class _javaType,  
+           java.lang.String mechType,
+           java.lang.Class _javaType,
            javax.xml.namespace.QName _xmlType) {
-        return 
+        return
           new  org.apache.axis.encoding.ser.BeanDeserializer(
             _javaType, _xmlType, typeDesc);
     }

@@ -28,7 +28,7 @@ public class MailSender {
 		// receivers[0].setSeqID(1);
 		// receivers[0].setRecvType("TO");
 		// receivers[0].setRecvEmail("justwon323@hanwha.com");
-		
+
 		try {
 			String resultMsg = proxy.sendMISMail(content, mailInfo, receivers, null);
 			return resultMsg;
@@ -37,7 +37,7 @@ public class MailSender {
 			System.out.println("error");
 			return null;
 		}
-		
+
 
 	}
 

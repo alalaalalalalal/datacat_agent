@@ -25,7 +25,7 @@ public class WsResource  implements java.io.Serializable {
 
     /**
      * Gets the senderEmail value for this WsResource.
-     * 
+     *
      * @return senderEmail
      */
     public java.lang.String getSenderEmail() {
@@ -35,7 +35,7 @@ public class WsResource  implements java.io.Serializable {
 
     /**
      * Sets the senderEmail value for this WsResource.
-     * 
+     *
      * @param senderEmail
      */
     public void setSenderEmail(java.lang.String senderEmail) {
@@ -45,7 +45,7 @@ public class WsResource  implements java.io.Serializable {
 
     /**
      * Gets the senderPw value for this WsResource.
-     * 
+     *
      * @return senderPw
      */
     public java.lang.String getSenderPw() {
@@ -55,7 +55,7 @@ public class WsResource  implements java.io.Serializable {
 
     /**
      * Sets the senderPw value for this WsResource.
-     * 
+     *
      * @param senderPw
      */
     public void setSenderPw(java.lang.String senderPw) {
@@ -63,7 +63,8 @@ public class WsResource  implements java.io.Serializable {
     }
 
     private java.lang.Object __equalsCalc = null;
-    public synchronized boolean equals(java.lang.Object obj) {
+    @Override
+	public synchronized boolean equals(java.lang.Object obj) {
         if (!(obj instanceof WsResource)) return false;
         WsResource other = (WsResource) obj;
         if (obj == null) return false;
@@ -73,11 +74,11 @@ public class WsResource  implements java.io.Serializable {
         }
         __equalsCalc = obj;
         boolean _equals;
-        _equals = true && 
-            ((this.senderEmail==null && other.getSenderEmail()==null) || 
+        _equals = true &&
+            ((this.senderEmail==null && other.getSenderEmail()==null) ||
              (this.senderEmail!=null &&
               this.senderEmail.equals(other.getSenderEmail()))) &&
-            ((this.senderPw==null && other.getSenderPw()==null) || 
+            ((this.senderPw==null && other.getSenderPw()==null) ||
              (this.senderPw!=null &&
               this.senderPw.equals(other.getSenderPw())));
         __equalsCalc = null;
@@ -85,7 +86,8 @@ public class WsResource  implements java.io.Serializable {
     }
 
     private boolean __hashCodeCalc = false;
-    public synchronized int hashCode() {
+    @Override
+	public synchronized int hashCode() {
         if (__hashCodeCalc) {
             return 0;
         }
@@ -132,10 +134,10 @@ public class WsResource  implements java.io.Serializable {
      * Get Custom Serializer
      */
     public static org.apache.axis.encoding.Serializer getSerializer(
-           java.lang.String mechType, 
-           java.lang.Class _javaType,  
+           java.lang.String mechType,
+           java.lang.Class _javaType,
            javax.xml.namespace.QName _xmlType) {
-        return 
+        return
           new  org.apache.axis.encoding.ser.BeanSerializer(
             _javaType, _xmlType, typeDesc);
     }
@@ -144,10 +146,10 @@ public class WsResource  implements java.io.Serializable {
      * Get Custom Deserializer
      */
     public static org.apache.axis.encoding.Deserializer getDeserializer(
-           java.lang.String mechType, 
-           java.lang.Class _javaType,  
+           java.lang.String mechType,
+           java.lang.Class _javaType,
            javax.xml.namespace.QName _xmlType) {
-        return 
+        return
           new  org.apache.axis.encoding.ser.BeanDeserializer(
             _javaType, _xmlType, typeDesc);
     }

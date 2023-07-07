@@ -35,7 +35,7 @@ public class MailServiceSoapBindingStub extends org.apache.axis.client.Stub impl
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("http://service.mail.ss.branch.neo.hanwha", "fault"),
                       "hanwha.neo.branch.ss.common.vo.WsException",
-                      new javax.xml.namespace.QName("http://vo.common.ss.branch.neo.hanwha", "WsException"), 
+                      new javax.xml.namespace.QName("http://vo.common.ss.branch.neo.hanwha", "WsException"),
                       true
                      ));
         _operations[0] = oper;
@@ -56,7 +56,7 @@ public class MailServiceSoapBindingStub extends org.apache.axis.client.Stub impl
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("http://service.mail.ss.branch.neo.hanwha", "fault"),
                       "hanwha.neo.branch.ss.common.vo.WsException",
-                      new javax.xml.namespace.QName("http://vo.common.ss.branch.neo.hanwha", "WsException"), 
+                      new javax.xml.namespace.QName("http://vo.common.ss.branch.neo.hanwha", "WsException"),
                       true
                      ));
         _operations[1] = oper;
@@ -79,7 +79,7 @@ public class MailServiceSoapBindingStub extends org.apache.axis.client.Stub impl
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("http://service.mail.ss.branch.neo.hanwha", "fault"),
                       "hanwha.neo.branch.ss.common.vo.WsException",
-                      new javax.xml.namespace.QName("http://vo.common.ss.branch.neo.hanwha", "WsException"), 
+                      new javax.xml.namespace.QName("http://vo.common.ss.branch.neo.hanwha", "WsException"),
                       true
                      ));
         _operations[2] = oper;
@@ -98,7 +98,7 @@ public class MailServiceSoapBindingStub extends org.apache.axis.client.Stub impl
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("http://service.mail.ss.branch.neo.hanwha", "fault"),
                       "hanwha.neo.branch.ss.common.vo.WsException",
-                      new javax.xml.namespace.QName("http://vo.common.ss.branch.neo.hanwha", "WsException"), 
+                      new javax.xml.namespace.QName("http://vo.common.ss.branch.neo.hanwha", "WsException"),
                       true
                      ));
         _operations[3] = oper;
@@ -249,7 +249,8 @@ public class MailServiceSoapBindingStub extends org.apache.axis.client.Stub impl
         }
     }
 
-    public hanwha.neo.branch.ss.mail.vo.WsMailStatus[] getMailStatusCounts(java.lang.String[] mailKey) throws java.rmi.RemoteException, hanwha.neo.branch.ss.common.vo.WsException {
+    @Override
+	public hanwha.neo.branch.ss.mail.vo.WsMailStatus[] getMailStatusCounts(java.lang.String[] mailKey) throws java.rmi.RemoteException, hanwha.neo.branch.ss.common.vo.WsException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -291,7 +292,8 @@ public class MailServiceSoapBindingStub extends org.apache.axis.client.Stub impl
 }
     }
 
-    public java.lang.String cancelMISMailByRecipient(java.lang.String mailKey, java.lang.String[] receiverForCancel, hanwha.neo.branch.ss.mail.vo.WsResource senderInfo) throws java.rmi.RemoteException, hanwha.neo.branch.ss.common.vo.WsException {
+    @Override
+	public java.lang.String cancelMISMailByRecipient(java.lang.String mailKey, java.lang.String[] receiverForCancel, hanwha.neo.branch.ss.mail.vo.WsResource senderInfo) throws java.rmi.RemoteException, hanwha.neo.branch.ss.common.vo.WsException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -333,7 +335,8 @@ public class MailServiceSoapBindingStub extends org.apache.axis.client.Stub impl
 }
     }
 
-    public java.lang.String sendMISMail(java.lang.String mailBody, hanwha.neo.branch.ss.mail.vo.WsMailInfo mailInfo, hanwha.neo.branch.ss.mail.vo.WsRecipient[] receivers, hanwha.neo.branch.ss.common.vo.WsAttachFile[] attachFile) throws java.rmi.RemoteException, hanwha.neo.branch.ss.common.vo.WsException {
+    @Override
+	public java.lang.String sendMISMail(java.lang.String mailBody, hanwha.neo.branch.ss.mail.vo.WsMailInfo mailInfo, hanwha.neo.branch.ss.mail.vo.WsRecipient[] receivers, hanwha.neo.branch.ss.common.vo.WsAttachFile[] attachFile) throws java.rmi.RemoteException, hanwha.neo.branch.ss.common.vo.WsException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -375,7 +378,8 @@ public class MailServiceSoapBindingStub extends org.apache.axis.client.Stub impl
 }
     }
 
-    public java.lang.String sendMISSchedule(java.lang.String mailBody, hanwha.neo.branch.ss.mail.vo.WsScheduleInfo scheduleInfo) throws java.rmi.RemoteException, hanwha.neo.branch.ss.common.vo.WsException {
+    @Override
+	public java.lang.String sendMISSchedule(java.lang.String mailBody, hanwha.neo.branch.ss.mail.vo.WsScheduleInfo scheduleInfo) throws java.rmi.RemoteException, hanwha.neo.branch.ss.common.vo.WsException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }

@@ -28,7 +28,7 @@ public class WsException extends org.apache.axis.AxisFault implements java.io.Se
 
     /**
      * Gets the exceptionActor value for this WsException.
-     * 
+     *
      * @return exceptionActor
      */
     public java.lang.String getExceptionActor() {
@@ -37,7 +37,7 @@ public class WsException extends org.apache.axis.AxisFault implements java.io.Se
 
     /**
      * Sets the exceptionActor value for this WsException.
-     * 
+     *
      * @param exceptionActor
      */
     public void setExceptionActor(java.lang.String exceptionActor) {
@@ -46,7 +46,7 @@ public class WsException extends org.apache.axis.AxisFault implements java.io.Se
 
     /**
      * Gets the exceptionCode value for this WsException.
-     * 
+     *
      * @return exceptionCode
      */
     public java.lang.String getExceptionCode() {
@@ -55,7 +55,7 @@ public class WsException extends org.apache.axis.AxisFault implements java.io.Se
 
     /**
      * Sets the exceptionCode value for this WsException.
-     * 
+     *
      * @param exceptionCode
      */
     public void setExceptionCode(java.lang.String exceptionCode) {
@@ -64,7 +64,7 @@ public class WsException extends org.apache.axis.AxisFault implements java.io.Se
 
     /**
      * Gets the exceptionMessage value for this WsException.
-     * 
+     *
      * @return exceptionMessage
      */
     public java.lang.String getExceptionMessage() {
@@ -73,7 +73,7 @@ public class WsException extends org.apache.axis.AxisFault implements java.io.Se
 
     /**
      * Sets the exceptionMessage value for this WsException.
-     * 
+     *
      * @param exceptionMessage
      */
     public void setExceptionMessage(java.lang.String exceptionMessage) {
@@ -82,7 +82,8 @@ public class WsException extends org.apache.axis.AxisFault implements java.io.Se
 
     private java.lang.Object __equalsCalc = null;
 
-    public synchronized boolean equals(java.lang.Object obj) {
+    @Override
+	public synchronized boolean equals(java.lang.Object obj) {
         if (!(obj instanceof WsException))
             return false;
         WsException other = (WsException) obj;
@@ -113,7 +114,8 @@ public class WsException extends org.apache.axis.AxisFault implements java.io.Se
 
     private boolean __hashCodeCalc = false;
 
-    public synchronized int hashCode() {
+    @Override
+	public synchronized int hashCode() {
         if (__hashCodeCalc) {
             return 0;
         }
@@ -194,7 +196,8 @@ public class WsException extends org.apache.axis.AxisFault implements java.io.Se
     /**
      * Writes the exception data to the faultDetails
      */
-    public void writeDetails(javax.xml.namespace.QName qname, org.apache.axis.encoding.SerializationContext context)
+    @Override
+	public void writeDetails(javax.xml.namespace.QName qname, org.apache.axis.encoding.SerializationContext context)
             throws java.io.IOException {
         context.serialize(qname, null, this);
     }

@@ -57,7 +57,7 @@ public class WsScheduleInfo  implements java.io.Serializable {
 
     /**
      * Gets the alarmTime value for this WsScheduleInfo.
-     * 
+     *
      * @return alarmTime
      */
     public int getAlarmTime() {
@@ -67,7 +67,7 @@ public class WsScheduleInfo  implements java.io.Serializable {
 
     /**
      * Sets the alarmTime value for this WsScheduleInfo.
-     * 
+     *
      * @param alarmTime
      */
     public void setAlarmTime(int alarmTime) {
@@ -77,7 +77,7 @@ public class WsScheduleInfo  implements java.io.Serializable {
 
     /**
      * Gets the allDay value for this WsScheduleInfo.
-     * 
+     *
      * @return allDay
      */
     public boolean isAllDay() {
@@ -87,7 +87,7 @@ public class WsScheduleInfo  implements java.io.Serializable {
 
     /**
      * Sets the allDay value for this WsScheduleInfo.
-     * 
+     *
      * @param allDay
      */
     public void setAllDay(boolean allDay) {
@@ -97,7 +97,7 @@ public class WsScheduleInfo  implements java.io.Serializable {
 
     /**
      * Gets the endDate value for this WsScheduleInfo.
-     * 
+     *
      * @return endDate
      */
     public java.lang.String getEndDate() {
@@ -107,7 +107,7 @@ public class WsScheduleInfo  implements java.io.Serializable {
 
     /**
      * Sets the endDate value for this WsScheduleInfo.
-     * 
+     *
      * @param endDate
      */
     public void setEndDate(java.lang.String endDate) {
@@ -117,7 +117,7 @@ public class WsScheduleInfo  implements java.io.Serializable {
 
     /**
      * Gets the htmlContent value for this WsScheduleInfo.
-     * 
+     *
      * @return htmlContent
      */
     public boolean isHtmlContent() {
@@ -127,7 +127,7 @@ public class WsScheduleInfo  implements java.io.Serializable {
 
     /**
      * Sets the htmlContent value for this WsScheduleInfo.
-     * 
+     *
      * @param htmlContent
      */
     public void setHtmlContent(boolean htmlContent) {
@@ -137,7 +137,7 @@ public class WsScheduleInfo  implements java.io.Serializable {
 
     /**
      * Gets the important value for this WsScheduleInfo.
-     * 
+     *
      * @return important
      */
     public boolean isImportant() {
@@ -147,7 +147,7 @@ public class WsScheduleInfo  implements java.io.Serializable {
 
     /**
      * Sets the important value for this WsScheduleInfo.
-     * 
+     *
      * @param important
      */
     public void setImportant(boolean important) {
@@ -157,7 +157,7 @@ public class WsScheduleInfo  implements java.io.Serializable {
 
     /**
      * Gets the location value for this WsScheduleInfo.
-     * 
+     *
      * @return location
      */
     public java.lang.String getLocation() {
@@ -167,7 +167,7 @@ public class WsScheduleInfo  implements java.io.Serializable {
 
     /**
      * Sets the location value for this WsScheduleInfo.
-     * 
+     *
      * @param location
      */
     public void setLocation(java.lang.String location) {
@@ -177,7 +177,7 @@ public class WsScheduleInfo  implements java.io.Serializable {
 
     /**
      * Gets the mhtContent value for this WsScheduleInfo.
-     * 
+     *
      * @return mhtContent
      */
     public boolean isMhtContent() {
@@ -187,7 +187,7 @@ public class WsScheduleInfo  implements java.io.Serializable {
 
     /**
      * Sets the mhtContent value for this WsScheduleInfo.
-     * 
+     *
      * @param mhtContent
      */
     public void setMhtContent(boolean mhtContent) {
@@ -197,7 +197,7 @@ public class WsScheduleInfo  implements java.io.Serializable {
 
     /**
      * Gets the senderEmail value for this WsScheduleInfo.
-     * 
+     *
      * @return senderEmail
      */
     public java.lang.String getSenderEmail() {
@@ -207,7 +207,7 @@ public class WsScheduleInfo  implements java.io.Serializable {
 
     /**
      * Sets the senderEmail value for this WsScheduleInfo.
-     * 
+     *
      * @param senderEmail
      */
     public void setSenderEmail(java.lang.String senderEmail) {
@@ -217,7 +217,7 @@ public class WsScheduleInfo  implements java.io.Serializable {
 
     /**
      * Gets the startDate value for this WsScheduleInfo.
-     * 
+     *
      * @return startDate
      */
     public java.lang.String getStartDate() {
@@ -227,7 +227,7 @@ public class WsScheduleInfo  implements java.io.Serializable {
 
     /**
      * Sets the startDate value for this WsScheduleInfo.
-     * 
+     *
      * @param startDate
      */
     public void setStartDate(java.lang.String startDate) {
@@ -237,7 +237,7 @@ public class WsScheduleInfo  implements java.io.Serializable {
 
     /**
      * Gets the subject value for this WsScheduleInfo.
-     * 
+     *
      * @return subject
      */
     public java.lang.String getSubject() {
@@ -247,7 +247,7 @@ public class WsScheduleInfo  implements java.io.Serializable {
 
     /**
      * Sets the subject value for this WsScheduleInfo.
-     * 
+     *
      * @param subject
      */
     public void setSubject(java.lang.String subject) {
@@ -255,7 +255,8 @@ public class WsScheduleInfo  implements java.io.Serializable {
     }
 
     private java.lang.Object __equalsCalc = null;
-    public synchronized boolean equals(java.lang.Object obj) {
+    @Override
+	public synchronized boolean equals(java.lang.Object obj) {
         if (!(obj instanceof WsScheduleInfo)) return false;
         WsScheduleInfo other = (WsScheduleInfo) obj;
         if (obj == null) return false;
@@ -265,25 +266,25 @@ public class WsScheduleInfo  implements java.io.Serializable {
         }
         __equalsCalc = obj;
         boolean _equals;
-        _equals = true && 
+        _equals = true &&
             this.alarmTime == other.getAlarmTime() &&
             this.allDay == other.isAllDay() &&
-            ((this.endDate==null && other.getEndDate()==null) || 
+            ((this.endDate==null && other.getEndDate()==null) ||
              (this.endDate!=null &&
               this.endDate.equals(other.getEndDate()))) &&
             this.htmlContent == other.isHtmlContent() &&
             this.important == other.isImportant() &&
-            ((this.location==null && other.getLocation()==null) || 
+            ((this.location==null && other.getLocation()==null) ||
              (this.location!=null &&
               this.location.equals(other.getLocation()))) &&
             this.mhtContent == other.isMhtContent() &&
-            ((this.senderEmail==null && other.getSenderEmail()==null) || 
+            ((this.senderEmail==null && other.getSenderEmail()==null) ||
              (this.senderEmail!=null &&
               this.senderEmail.equals(other.getSenderEmail()))) &&
-            ((this.startDate==null && other.getStartDate()==null) || 
+            ((this.startDate==null && other.getStartDate()==null) ||
              (this.startDate!=null &&
               this.startDate.equals(other.getStartDate()))) &&
-            ((this.subject==null && other.getSubject()==null) || 
+            ((this.subject==null && other.getSubject()==null) ||
              (this.subject!=null &&
               this.subject.equals(other.getSubject())));
         __equalsCalc = null;
@@ -291,7 +292,8 @@ public class WsScheduleInfo  implements java.io.Serializable {
     }
 
     private boolean __hashCodeCalc = false;
-    public synchronized int hashCode() {
+    @Override
+	public synchronized int hashCode() {
         if (__hashCodeCalc) {
             return 0;
         }
@@ -400,10 +402,10 @@ public class WsScheduleInfo  implements java.io.Serializable {
      * Get Custom Serializer
      */
     public static org.apache.axis.encoding.Serializer getSerializer(
-           java.lang.String mechType, 
-           java.lang.Class _javaType,  
+           java.lang.String mechType,
+           java.lang.Class _javaType,
            javax.xml.namespace.QName _xmlType) {
-        return 
+        return
           new  org.apache.axis.encoding.ser.BeanSerializer(
             _javaType, _xmlType, typeDesc);
     }
@@ -412,10 +414,10 @@ public class WsScheduleInfo  implements java.io.Serializable {
      * Get Custom Deserializer
      */
     public static org.apache.axis.encoding.Deserializer getDeserializer(
-           java.lang.String mechType, 
-           java.lang.Class _javaType,  
+           java.lang.String mechType,
+           java.lang.Class _javaType,
            javax.xml.namespace.QName _xmlType) {
-        return 
+        return
           new  org.apache.axis.encoding.ser.BeanDeserializer(
             _javaType, _xmlType, typeDesc);
     }

@@ -5,6 +5,7 @@ hanwha/neo/branch/ss/mail/service/MailService.class
 hanwha/neo/branch/ss/mail/testmailsend.class
 hanwha/neo/branch/ss/datacat_agent/entity/CategoryMainEntity.class
 hanwha/neo/branch/ss/datacat_agent/entity/MessageEntity.class
+hanwha/neo/branch/ss/datacat_agent/TEST2.class
 hanwha/neo/branch/ss/datacat_agent/repository/UserRepository.class
 hanwha/neo/branch/ss/datacat_agent/repository/ExecutionLogRepository.class
 hanwha/neo/branch/ss/datacat_agent/entity/ScriptEntity.class
@@ -13,6 +14,7 @@ hanwha/neo/branch/ss/datacat_agent/TEST.class
 com/SSH2AWS.class
 hanwha/neo/branch/ss/mail/service/MailSender.class
 hanwha/neo/branch/ss/mail/vo/WsRecipient.class
+hanwha/neo/branch/ss/datacat_agent/MysqlConnector.class
 hanwha/neo/branch/ss/common/vo/WsAttachFile.class
 hanwha/neo/branch/ss/datacat_agent/repository/CategoryMainRepository.class
 hanwha/neo/branch/ss/mail/vo/WsScheduleInfo.class

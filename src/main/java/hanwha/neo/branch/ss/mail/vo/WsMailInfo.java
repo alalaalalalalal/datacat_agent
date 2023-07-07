@@ -41,7 +41,7 @@ public class WsMailInfo  implements java.io.Serializable {
 
     /**
      * Gets the attachCount value for this WsMailInfo.
-     * 
+     *
      * @return attachCount
      */
     public int getAttachCount() {
@@ -51,7 +51,7 @@ public class WsMailInfo  implements java.io.Serializable {
 
     /**
      * Sets the attachCount value for this WsMailInfo.
-     * 
+     *
      * @param attachCount
      */
     public void setAttachCount(int attachCount) {
@@ -61,7 +61,7 @@ public class WsMailInfo  implements java.io.Serializable {
 
     /**
      * Gets the htmlContent value for this WsMailInfo.
-     * 
+     *
      * @return htmlContent
      */
     public boolean isHtmlContent() {
@@ -71,7 +71,7 @@ public class WsMailInfo  implements java.io.Serializable {
 
     /**
      * Sets the htmlContent value for this WsMailInfo.
-     * 
+     *
      * @param htmlContent
      */
     public void setHtmlContent(boolean htmlContent) {
@@ -81,7 +81,7 @@ public class WsMailInfo  implements java.io.Serializable {
 
     /**
      * Gets the important value for this WsMailInfo.
-     * 
+     *
      * @return important
      */
     public boolean isImportant() {
@@ -91,7 +91,7 @@ public class WsMailInfo  implements java.io.Serializable {
 
     /**
      * Sets the important value for this WsMailInfo.
-     * 
+     *
      * @param important
      */
     public void setImportant(boolean important) {
@@ -101,7 +101,7 @@ public class WsMailInfo  implements java.io.Serializable {
 
     /**
      * Gets the mhtContent value for this WsMailInfo.
-     * 
+     *
      * @return mhtContent
      */
     public boolean isMhtContent() {
@@ -111,7 +111,7 @@ public class WsMailInfo  implements java.io.Serializable {
 
     /**
      * Sets the mhtContent value for this WsMailInfo.
-     * 
+     *
      * @param mhtContent
      */
     public void setMhtContent(boolean mhtContent) {
@@ -121,7 +121,7 @@ public class WsMailInfo  implements java.io.Serializable {
 
     /**
      * Gets the senderEmail value for this WsMailInfo.
-     * 
+     *
      * @return senderEmail
      */
     public java.lang.String getSenderEmail() {
@@ -131,7 +131,7 @@ public class WsMailInfo  implements java.io.Serializable {
 
     /**
      * Sets the senderEmail value for this WsMailInfo.
-     * 
+     *
      * @param senderEmail
      */
     public void setSenderEmail(java.lang.String senderEmail) {
@@ -141,7 +141,7 @@ public class WsMailInfo  implements java.io.Serializable {
 
     /**
      * Gets the subject value for this WsMailInfo.
-     * 
+     *
      * @return subject
      */
     public java.lang.String getSubject() {
@@ -151,7 +151,7 @@ public class WsMailInfo  implements java.io.Serializable {
 
     /**
      * Sets the subject value for this WsMailInfo.
-     * 
+     *
      * @param subject
      */
     public void setSubject(java.lang.String subject) {
@@ -159,7 +159,8 @@ public class WsMailInfo  implements java.io.Serializable {
     }
 
     private java.lang.Object __equalsCalc = null;
-    public synchronized boolean equals(java.lang.Object obj) {
+    @Override
+	public synchronized boolean equals(java.lang.Object obj) {
         if (!(obj instanceof WsMailInfo)) return false;
         WsMailInfo other = (WsMailInfo) obj;
         if (obj == null) return false;
@@ -169,15 +170,15 @@ public class WsMailInfo  implements java.io.Serializable {
         }
         __equalsCalc = obj;
         boolean _equals;
-        _equals = true && 
+        _equals = true &&
             this.attachCount == other.getAttachCount() &&
             this.htmlContent == other.isHtmlContent() &&
             this.important == other.isImportant() &&
             this.mhtContent == other.isMhtContent() &&
-            ((this.senderEmail==null && other.getSenderEmail()==null) || 
+            ((this.senderEmail==null && other.getSenderEmail()==null) ||
              (this.senderEmail!=null &&
               this.senderEmail.equals(other.getSenderEmail()))) &&
-            ((this.subject==null && other.getSubject()==null) || 
+            ((this.subject==null && other.getSubject()==null) ||
              (this.subject!=null &&
               this.subject.equals(other.getSubject())));
         __equalsCalc = null;
@@ -185,7 +186,8 @@ public class WsMailInfo  implements java.io.Serializable {
     }
 
     private boolean __hashCodeCalc = false;
-    public synchronized int hashCode() {
+    @Override
+	public synchronized int hashCode() {
         if (__hashCodeCalc) {
             return 0;
         }
@@ -260,10 +262,10 @@ public class WsMailInfo  implements java.io.Serializable {
      * Get Custom Serializer
      */
     public static org.apache.axis.encoding.Serializer getSerializer(
-           java.lang.String mechType, 
-           java.lang.Class _javaType,  
+           java.lang.String mechType,
+           java.lang.Class _javaType,
            javax.xml.namespace.QName _xmlType) {
-        return 
+        return
           new  org.apache.axis.encoding.ser.BeanSerializer(
             _javaType, _xmlType, typeDesc);
     }
@@ -272,10 +274,10 @@ public class WsMailInfo  implements java.io.Serializable {
      * Get Custom Deserializer
      */
     public static org.apache.axis.encoding.Deserializer getDeserializer(
-           java.lang.String mechType, 
-           java.lang.Class _javaType,  
+           java.lang.String mechType,
+           java.lang.Class _javaType,
            javax.xml.namespace.QName _xmlType) {
-        return 
+        return
           new  org.apache.axis.encoding.ser.BeanDeserializer(
             _javaType, _xmlType, typeDesc);
     }

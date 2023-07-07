@@ -1,0 +1,21 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "TEST2",
+            "request": "launch",
+            "mainClass": "hanwha.neo.branch.ss.datacat_agent.TEST2",
+            "projectName": "datacat_agent"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-DatacatAgentApplication<datacat_agent>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "hanwha.neo.branch.ss.datacat_agent.DatacatAgentApplication",
+            "projectName": "datacat_agent",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

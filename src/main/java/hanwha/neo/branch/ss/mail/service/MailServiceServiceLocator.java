@@ -24,7 +24,8 @@ public class MailServiceServiceLocator extends org.apache.axis.client.Service im
     // Use to get a proxy class for MailService
     private java.lang.String MailService_address = "http://hcom.circle.hanwha.com/api/axis/services/MailService";
 
-    public java.lang.String getMailServiceAddress() {
+    @Override
+	public java.lang.String getMailServiceAddress() {
         return MailService_address;
     }
 
@@ -39,7 +40,8 @@ public class MailServiceServiceLocator extends org.apache.axis.client.Service im
         MailServiceWSDDServiceName = name;
     }
 
-    public hanwha.neo.branch.ss.mail.service.MailService getMailService() throws javax.xml.rpc.ServiceException {
+    @Override
+	public hanwha.neo.branch.ss.mail.service.MailService getMailService() throws javax.xml.rpc.ServiceException {
        java.net.URL endpoint;
         try {
             endpoint = new java.net.URL(MailService_address);
@@ -50,7 +52,8 @@ public class MailServiceServiceLocator extends org.apache.axis.client.Service im
         return getMailService(endpoint);
     }
 
-    public hanwha.neo.branch.ss.mail.service.MailService getMailService(java.net.URL portAddress) throws javax.xml.rpc.ServiceException {
+    @Override
+	public hanwha.neo.branch.ss.mail.service.MailService getMailService(java.net.URL portAddress) throws javax.xml.rpc.ServiceException {
         try {
             hanwha.neo.branch.ss.mail.service.MailServiceSoapBindingStub _stub = new hanwha.neo.branch.ss.mail.service.MailServiceSoapBindingStub(portAddress, this);
             _stub.setPortName(getMailServiceWSDDServiceName());
@@ -70,7 +73,8 @@ public class MailServiceServiceLocator extends org.apache.axis.client.Service im
      * If this service has no port for the given interface,
      * then ServiceException is thrown.
      */
-    public java.rmi.Remote getPort(Class serviceEndpointInterface) throws javax.xml.rpc.ServiceException {
+    @Override
+	public java.rmi.Remote getPort(Class serviceEndpointInterface) throws javax.xml.rpc.ServiceException {
         try {
             if (hanwha.neo.branch.ss.mail.service.MailService.class.isAssignableFrom(serviceEndpointInterface)) {
                 hanwha.neo.branch.ss.mail.service.MailServiceSoapBindingStub _stub = new hanwha.neo.branch.ss.mail.service.MailServiceSoapBindingStub(new java.net.URL(MailService_address), this);
@@ -89,7 +93,8 @@ public class MailServiceServiceLocator extends org.apache.axis.client.Service im
      * If this service has no port for the given interface,
      * then ServiceException is thrown.
      */
-    public java.rmi.Remote getPort(javax.xml.namespace.QName portName, Class serviceEndpointInterface) throws javax.xml.rpc.ServiceException {
+    @Override
+	public java.rmi.Remote getPort(javax.xml.namespace.QName portName, Class serviceEndpointInterface) throws javax.xml.rpc.ServiceException {
         if (portName == null) {
             return getPort(serviceEndpointInterface);
         }
@@ -104,13 +109,15 @@ public class MailServiceServiceLocator extends org.apache.axis.client.Service im
         }
     }
 
-    public javax.xml.namespace.QName getServiceName() {
+    @Override
+	public javax.xml.namespace.QName getServiceName() {
         return new javax.xml.namespace.QName("http://service.mail.ss.branch.neo.hanwha", "MailServiceService");
     }
 
     private java.util.HashSet ports = null;
 
-    public java.util.Iterator getPorts() {
+    @Override
+	public java.util.Iterator getPorts() {
         if (ports == null) {
             ports = new java.util.HashSet();
             ports.add(new javax.xml.namespace.QName("http://service.mail.ss.branch.neo.hanwha", "MailService"));
@@ -122,11 +129,11 @@ public class MailServiceServiceLocator extends org.apache.axis.client.Service im
     * Set the endpoint address for the specified port name.
     */
     public void setEndpointAddress(java.lang.String portName, java.lang.String address) throws javax.xml.rpc.ServiceException {
-        
+
 if ("MailService".equals(portName)) {
             setMailServiceEndpointAddress(address);
         }
-        else 
+        else
 { // Unknown Port Name
             throw new javax.xml.rpc.ServiceException(" Cannot set Endpoint Address for Unknown Port" + portName);
         }

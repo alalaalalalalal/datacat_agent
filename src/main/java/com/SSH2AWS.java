@@ -2,9 +2,13 @@ package com;
 
 import java.io.IOException;
 import java.io.InputStream;
+
 import org.springframework.stereotype.Component;
 
-import com.jcraft.jsch.*;
+import com.jcraft.jsch.ChannelExec;
+import com.jcraft.jsch.JSch;
+import com.jcraft.jsch.JSchException;
+import com.jcraft.jsch.Session;
 @Component
 public class SSH2AWS {
     private final String username = "ec2-user";
@@ -56,7 +60,7 @@ public class SSH2AWS {
 
             byte[] buffer = new byte[8192];
             int decodedLength;
-            
+
             while ((decodedLength = inputStream.read(buffer, 0, buffer.length)) > 0){
                 response.append(new String(buffer, 0, decodedLength));
             }
@@ -69,13 +73,13 @@ public class SSH2AWS {
 
         // byte[] buffer = new byte[8192];
         // int decodedLength;
-        
+
         // while ((decodedLength = inputStream.read(buffer, 0, buffer.length)) > 0)
         //     response.append(new String(buffer, 0, decodedLength));
 
 
         this.disConnectSSH();
-        
+
         return response.toString();
     }
 
