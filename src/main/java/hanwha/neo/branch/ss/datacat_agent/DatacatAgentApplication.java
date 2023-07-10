@@ -123,6 +123,7 @@ public class DatacatAgentApplication implements CommandLineRunner {
 					receivers[0].setRecvEmail("justwon323@hanwha.com");
 					String content = env + " 환경에서 <br>" + timestamp.toString() + " 에 <br>" + scriptEntity.getCommand()+ "<br> 실행시 비정상 값 검출됨";
 					MailSender mailSender = new MailSender();
+					//@20230707 임시로 메일 발송만 막음ㄴ
 					// mailSender.sendTextMail(MailEndpoint, "확인요망 " + timestamp.toString(), sender, receivers,
 					// 		content);
 
