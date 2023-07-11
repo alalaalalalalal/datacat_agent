@@ -26,7 +26,7 @@ public class MessageMailEntity {
     @Column(name = "mail_contents")
     private String mailContents;
 
-    @Column(name = "mailGb")
+    @Column(name = "mail_gb")
     private int mailGb;
 
     @Column(name = "mail_recv_group")
