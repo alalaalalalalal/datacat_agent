@@ -18,7 +18,6 @@ import hanwha.neo.branch.ss.datacat_agent.repository.MessageMailRepository;
 import hanwha.neo.branch.ss.datacat_agent.repository.MessageRepository;
 import hanwha.neo.branch.ss.datacat_agent.repository.ScriptRepository;
 import hanwha.neo.branch.ss.datacat_agent.repository.UserRepository;
-import jakarta.transaction.Transactional;
 
 public class DatacatAgentServiceImpl implements DatacatAgentService {
     @Autowired
@@ -102,10 +101,10 @@ public class DatacatAgentServiceImpl implements DatacatAgentService {
     }
 
     @Override
-    @Transactional
     public void updateMailstatus(Long pid) {
-        messageMailRepository.findBySeq(pid).setSent(0);
-      
+        MessageMailEntity messageMailEntity = messageMailRepository.findBySeq(pid);
+        messageMailEntity.setSent(1);
+        messageMailRepository.save(messageMailEntity);
     }
 
 }
