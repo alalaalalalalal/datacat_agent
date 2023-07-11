@@ -18,6 +18,7 @@ import hanwha.neo.branch.ss.datacat_agent.repository.MessageMailRepository;
 import hanwha.neo.branch.ss.datacat_agent.repository.MessageRepository;
 import hanwha.neo.branch.ss.datacat_agent.repository.ScriptRepository;
 import hanwha.neo.branch.ss.datacat_agent.repository.UserRepository;
+import jakarta.transaction.Transactional;
 
 public class DatacatAgentServiceImpl implements DatacatAgentService {
     @Autowired
@@ -98,6 +99,13 @@ public class DatacatAgentServiceImpl implements DatacatAgentService {
     public String getSSHResponse(String source) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getSSHResponse'");
+    }
+
+    @Override
+    @Transactional
+    public void updateMailstatus(Long pid) {
+        messageMailRepository.findBySeq(pid).setSent(0);
+      
     }
 
 }

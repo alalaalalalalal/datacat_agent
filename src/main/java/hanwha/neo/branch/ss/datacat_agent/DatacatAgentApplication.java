@@ -59,6 +59,9 @@ public class DatacatAgentApplication implements CommandLineRunner {
 						String hour = sdf.format(timestamp).replace(":", "");
 						String starTtime = scriptEntity.getStartTime().toString().replace(":", "");
 						String endTime = scriptEntity.getEndTime().toString().replace(":", "");
+						// if("09".equals(hour) || "9".equals(hour)){ // 9시 발송
+							sendItrm();
+						// }
 
 						if (Integer.valueOf(hour) >= Integer.valueOf(starTtime)
 								&& Integer.valueOf(hour) <= Integer.valueOf(endTime)) { // 언제부터 언제까지 실행해야 하는지 체크
@@ -71,7 +74,8 @@ public class DatacatAgentApplication implements CommandLineRunner {
 						}
 					}
 				}
-				sendItrm();
+
+				
 				Thread.sleep(1000 * 60 * 5); // 5분에 한번씩 체크
 			}
 		}
@@ -90,6 +94,7 @@ public class DatacatAgentApplication implements CommandLineRunner {
 		//@20230707 임시로 메일 발송만 막음ㄴ
 		mailSender.sendTextMail(MailEndpoint, messageMailEntity.getMailSubject(), sender, receivers,
 				content);
+		getDatacatAgentService().updateMailstatus(messageMailEntity.getSeq()); // 메일 발송 후 상태 업데이트
 	}
 	public void executeK8s(ScriptEntity scriptEntity, String env) throws RemoteException {
 

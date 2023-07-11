@@ -26,6 +26,9 @@ public interface DatacatAgentService {
     // itrm 메일 읽어오기
     public List<MessageMailEntity> selectItrmMail(String sent);
 
+    // itrm 메일 상태업데이트
+    public void updateMailstatus(Long pid);
+
     // 스크립트 실행
     public StringBuilder execShellScript(String[] script);
 

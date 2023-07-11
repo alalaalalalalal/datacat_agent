@@ -9,4 +9,6 @@ import hanwha.neo.branch.ss.datacat_agent.entity.MessageMailEntity;
 public interface MessageMailRepository extends JpaRepository<MessageMailEntity, Long> {
 
     List<MessageMailEntity> findBySent(String sent);
+    
+    MessageMailEntity findBySeq(long seq);
 }
