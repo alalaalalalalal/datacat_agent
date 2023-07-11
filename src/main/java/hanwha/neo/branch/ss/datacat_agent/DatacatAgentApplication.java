@@ -54,7 +54,9 @@ public class DatacatAgentApplication implements CommandLineRunner {
 				SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 				String hour = sdf.format(timestamp).replace(":", "");
 			 	if("09".equals(hour.trim()) || "9".equals(hour.trim())){ // 9시 발송
-					sendItrm();
+					if("y".equals(args[1])){
+						sendItrm();
+					}
 			 	}
 				List<ScriptEntity> scriptList = getDatacatAgentService().readScript(args[0]);
 				for (ScriptEntity scriptEntity : scriptList) {
