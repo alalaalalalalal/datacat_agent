@@ -86,6 +86,7 @@ public class DatacatAgentApplication implements CommandLineRunner {
 	public void sendItrm() throws RemoteException  {
 		List<MessageMailEntity> messageMailList =  getDatacatAgentService().selectItrmMail("0");
 		MessageMailEntity messageMailEntity = messageMailList.get(0);
+		//수신자 지정
 		WsRecipient[] receivers = new WsRecipient[3];
 		receivers[0] = new WsRecipient();
 		receivers[0].setSeqID(1);
