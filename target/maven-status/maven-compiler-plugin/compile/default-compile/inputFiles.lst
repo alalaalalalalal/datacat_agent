@@ -12,6 +12,7 @@
 /Users/jamesyu/Documents/GitHub/datacat_agent/src/main/java/hanwha/neo/branch/ss/datacat_agent/service/DatacatAgentServiceImpl.java
 /Users/jamesyu/Documents/GitHub/datacat_agent/src/main/java/hanwha/neo/branch/ss/common/vo/WsException.java
 /Users/jamesyu/Documents/GitHub/datacat_agent/src/main/java/hanwha/neo/branch/ss/mail/service/MailServiceServiceLocator.java
+/Users/jamesyu/Documents/GitHub/datacat_agent/src/main/java/hanwha/neo/branch/ss/datacat_agent/entity/MessageMailEntity.java
 /Users/jamesyu/Documents/GitHub/datacat_agent/src/main/java/hanwha/neo/branch/ss/mail/service/MailServiceSoapBindingStub.java
 /Users/jamesyu/Documents/GitHub/datacat_agent/src/main/java/hanwha/neo/branch/ss/datacat_agent/entity/MessageEntity.java
 /Users/jamesyu/Documents/GitHub/datacat_agent/src/main/java/hanwha/neo/branch/ss/datacat_agent/entity/ExecutionLogEntity.java
@@ -23,6 +24,7 @@
 /Users/jamesyu/Documents/GitHub/datacat_agent/src/main/java/hanwha/neo/branch/ss/datacat_agent/repository/JobRepository.java
 /Users/jamesyu/Documents/GitHub/datacat_agent/src/main/java/hanwha/neo/branch/ss/datacat_agent/MysqlConnector.java
 /Users/jamesyu/Documents/GitHub/datacat_agent/src/main/java/hanwha/neo/branch/ss/datacat_agent/entity/CategoryMainEntity.java
+/Users/jamesyu/Documents/GitHub/datacat_agent/src/main/java/hanwha/neo/branch/ss/datacat_agent/repository/MessageMailRepository.java
 /Users/jamesyu/Documents/GitHub/datacat_agent/src/main/java/hanwha/neo/branch/ss/mail/service/MailServiceProxy.java
 /Users/jamesyu/Documents/GitHub/datacat_agent/src/main/java/hanwha/neo/branch/ss/mail/vo/WsMailInfo.java
 /Users/jamesyu/Documents/GitHub/datacat_agent/src/main/java/hanwha/neo/branch/ss/datacat_agent/entity/ScriptEntity.java

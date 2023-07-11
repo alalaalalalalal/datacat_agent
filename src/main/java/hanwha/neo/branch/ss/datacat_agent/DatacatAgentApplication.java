@@ -13,6 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import hanwha.neo.branch.ss.datacat_agent.entity.ExecutionLogEntity;
+import hanwha.neo.branch.ss.datacat_agent.entity.MessageMailEntity;
 import hanwha.neo.branch.ss.datacat_agent.entity.ScriptEntity;
 import hanwha.neo.branch.ss.datacat_agent.service.DatacatAgentService;
 import hanwha.neo.branch.ss.datacat_agent.service.DatacatAgentServiceImpl;
@@ -70,11 +71,26 @@ public class DatacatAgentApplication implements CommandLineRunner {
 						}
 					}
 				}
+				sendItrm();
 				Thread.sleep(1000 * 60 * 5); // 5분에 한번씩 체크
 			}
 		}
 	}
 
+	public void sendItrm() throws RemoteException  {
+		List<MessageMailEntity> messageMailList =  getDatacatAgentService().selectItrmMail("0");
+		MessageMailEntity messageMailEntity = messageMailList.get(0);
+		WsRecipient[] receivers = new WsRecipient[1];
+		receivers[0] = new WsRecipient();
+		receivers[0].setSeqID(1);
+		receivers[0].setRecvType("TO");
+		receivers[0].setRecvEmail("justwon323@hanwha.com");
+		String content = messageMailEntity.getMailContents();
+		MailSender mailSender = new MailSender();
+		//@20230707 임시로 메일 발송만 막음ㄴ
+		mailSender.sendTextMail(MailEndpoint, messageMailEntity.getMailSubject(), sender, receivers,
+				content);
+	}
 	public void executeK8s(ScriptEntity scriptEntity, String env) throws RemoteException {
 
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());

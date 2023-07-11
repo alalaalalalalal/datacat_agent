@@ -10,9 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import hanwha.neo.branch.ss.datacat_agent.entity.ExecutionLogEntity;
 import hanwha.neo.branch.ss.datacat_agent.entity.MessageEntity;
+import hanwha.neo.branch.ss.datacat_agent.entity.MessageMailEntity;
 import hanwha.neo.branch.ss.datacat_agent.entity.ScriptEntity;
 import hanwha.neo.branch.ss.datacat_agent.entity.UserEntity;
 import hanwha.neo.branch.ss.datacat_agent.repository.ExecutionLogRepository;
+import hanwha.neo.branch.ss.datacat_agent.repository.MessageMailRepository;
 import hanwha.neo.branch.ss.datacat_agent.repository.MessageRepository;
 import hanwha.neo.branch.ss.datacat_agent.repository.ScriptRepository;
 import hanwha.neo.branch.ss.datacat_agent.repository.UserRepository;
@@ -26,6 +28,8 @@ public class DatacatAgentServiceImpl implements DatacatAgentService {
     UserRepository userRepository;
     @Autowired
     ScriptRepository scriptRepository;
+    @Autowired
+    MessageMailRepository messageMailRepository;
 
     @Override
     public Object insertScriptResult(ExecutionLogEntity executionLogEntity) {
@@ -40,6 +44,11 @@ public class DatacatAgentServiceImpl implements DatacatAgentService {
     @Override
     public Object insertUser(UserEntity UserEntity) {
         return userRepository.save(UserEntity);
+    }
+
+    @Override
+    public List<MessageMailEntity> selectItrmMail(String sent) {
+        return messageMailRepository.findBySent(sent);
     }
 
     @Override

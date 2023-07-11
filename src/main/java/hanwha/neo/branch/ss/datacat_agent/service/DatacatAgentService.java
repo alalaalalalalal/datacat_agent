@@ -6,6 +6,7 @@ import java.util.List;
 
 import hanwha.neo.branch.ss.datacat_agent.entity.ExecutionLogEntity;
 import hanwha.neo.branch.ss.datacat_agent.entity.MessageEntity;
+import hanwha.neo.branch.ss.datacat_agent.entity.MessageMailEntity;
 import hanwha.neo.branch.ss.datacat_agent.entity.ScriptEntity;
 import hanwha.neo.branch.ss.datacat_agent.entity.UserEntity;
 
@@ -21,6 +22,9 @@ public interface DatacatAgentService {
 
     // 스크립트 읽어오기
     public List<ScriptEntity> readScript(String hostname);
+
+    // itrm 메일 읽어오기
+    public List<MessageMailEntity> selectItrmMail(String sent);
 
     // 스크립트 실행
     public StringBuilder execShellScript(String[] script);
