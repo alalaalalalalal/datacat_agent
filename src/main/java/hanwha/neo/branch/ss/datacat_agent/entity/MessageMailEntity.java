@@ -11,9 +11,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity(name = "message_mail")
+@NoArgsConstructor
 public class MessageMailEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
