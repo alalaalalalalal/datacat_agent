@@ -53,9 +53,9 @@ public class DatacatAgentApplication implements CommandLineRunner {
 				Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 				SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 				String hour = sdf.format(timestamp).replace(":", "");
-			// if("09".equals(hour) || "9".equals(hour)){ // 9시 발송
-				sendItrm();
-			// }
+			 	if("09".equals(hour.trim()) || "9".equals(hour.trim())){ // 9시 발송
+					sendItrm();
+			 	}
 				List<ScriptEntity> scriptList = getDatacatAgentService().readScript(args[0]);
 				for (ScriptEntity scriptEntity : scriptList) {
 					if (scriptEntity != null) {
@@ -86,11 +86,20 @@ public class DatacatAgentApplication implements CommandLineRunner {
 	public void sendItrm() throws RemoteException  {
 		List<MessageMailEntity> messageMailList =  getDatacatAgentService().selectItrmMail("0");
 		MessageMailEntity messageMailEntity = messageMailList.get(0);
-		WsRecipient[] receivers = new WsRecipient[1];
+		WsRecipient[] receivers = new WsRecipient[3];
 		receivers[0] = new WsRecipient();
 		receivers[0].setSeqID(1);
 		receivers[0].setRecvType("TO");
 		receivers[0].setRecvEmail("justwon323@hanwha.com");
+		receivers[1] = new WsRecipient();
+		receivers[1].setSeqID(2);
+		receivers[1].setRecvType("TO");
+		receivers[1].setRecvEmail("hkcho9799@hanwha.com");
+		receivers[2] = new WsRecipient();
+		receivers[2].setSeqID(3);
+		receivers[2].setRecvType("TO");
+		receivers[2].setRecvEmail("true84you@hanwha.com");
+
 		String content = messageMailEntity.getMailContents();
 		MailSender mailSender = new MailSender();
 		//@20230707 임시로 메일 발송만 막음ㄴ
