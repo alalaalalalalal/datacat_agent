@@ -53,6 +53,8 @@ public class DatacatAgentApplication implements CommandLineRunner {
 				Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 				SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 				String hour = sdf.format(timestamp).replace(":", "");
+				log.info ("시간 : "+ hour);
+				log.info ("아규먼트 : "+args[1]);
 			 	if("00".equals(hour.trim()) || "0".equals(hour.trim())){ // 9시 발송 개발계 IP 메일api에 미등록으로 UTC기준으로 변경
 					if("y".equals(args[1])){
 						sendItrm();
