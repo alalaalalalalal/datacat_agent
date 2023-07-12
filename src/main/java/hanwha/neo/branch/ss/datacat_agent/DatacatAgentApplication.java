@@ -53,7 +53,7 @@ public class DatacatAgentApplication implements CommandLineRunner {
 				Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 				SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 				String hour = sdf.format(timestamp).replace(":", "");
-			 	if("09".equals(hour.trim()) || "9".equals(hour.trim())){ // 9시 발송
+			 	if("00".equals(hour.trim()) || "0".equals(hour.trim())){ // 9시 발송 개발계 IP 메일api에 미등록으로 UTC기준으로 변경
 					if("y".equals(args[1])){
 						sendItrm();
 					}
@@ -108,10 +108,8 @@ public class DatacatAgentApplication implements CommandLineRunner {
 		receivers[3].setRecvEmail("nan0228@hanwha.com");
 
 		
-
 		String content = messageMailEntity.getMailContents();
 		MailSender mailSender = new MailSender();
-		//@20230707 임시로 메일 발송만 막음ㄴ
 		mailSender.sendTextMail(MailEndpoint, messageMailEntity.getMailSubject(), sender, receivers,
 				content);
 		getDatacatAgentService().updateMailstatus(messageMailEntity.getSeq()); // 메일 발송 후 상태 업데이트
