@@ -91,7 +91,7 @@ public class DatacatAgentApplication implements CommandLineRunner {
 		List<MessageMailEntity> messageMailList =  getDatacatAgentService().selectItrmMail("0");
 		MessageMailEntity messageMailEntity = messageMailList.get(0);
 		//수신자 지정
-		WsRecipient[] receivers = new WsRecipient[4];
+		WsRecipient[] receivers = new WsRecipient[3];
 		receivers[0] = new WsRecipient();
 		receivers[0].setSeqID(1);
 		receivers[0].setRecvType("TO");
@@ -104,10 +104,10 @@ public class DatacatAgentApplication implements CommandLineRunner {
 		receivers[2].setSeqID(3);
 		receivers[2].setRecvType("TO");
 		receivers[2].setRecvEmail("true84you@hanwha.com");
-		receivers[3] = new WsRecipient();
-		receivers[3].setSeqID(4);
-		receivers[3].setRecvType("TO");
-		receivers[3].setRecvEmail("nan0228@hanwha.com");
+		// receivers[3] = new WsRecipient();
+		// receivers[3].setSeqID(4);
+		// receivers[3].setRecvType("TO");
+		// receivers[3].setRecvEmail("nan0228@hanwha.com");
 
 		
 		String content = messageMailEntity.getMailContents();
