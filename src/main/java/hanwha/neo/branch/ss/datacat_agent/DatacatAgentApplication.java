@@ -74,7 +74,11 @@ public class DatacatAgentApplication implements CommandLineRunner {
 							log.info("스크립트 실행 성공");
 							log.info(hour + " / " + starTtime + " / " + endTime);
 							log.info("id : " + scriptEntity.getPid());
-							executeK8s(scriptEntity, args[0]);
+							try{
+								executeK8s(scriptEntity, args[0]);
+							}catch(Exception e){
+								log.error("@@@@@@@@@@@@@@@@ 에러 발생 @@@@@@@@@@@@@@@@@" + e.toString());
+							}
 						} else {
 							log.info("스크립트 시간 체크로 제외됨");
 						}
