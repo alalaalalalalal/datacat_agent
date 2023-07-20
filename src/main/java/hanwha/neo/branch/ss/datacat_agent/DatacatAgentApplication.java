@@ -93,32 +93,34 @@ public class DatacatAgentApplication implements CommandLineRunner {
 
 	public void sendItrm() throws RemoteException  {
 		List<MessageMailEntity> messageMailList =  getDatacatAgentService().selectItrmMail("0");
-		MessageMailEntity messageMailEntity = messageMailList.get(0);
-		//수신자 지정
-		WsRecipient[] receivers = new WsRecipient[3];
-		receivers[0] = new WsRecipient();
-		receivers[0].setSeqID(1);
-		receivers[0].setRecvType("TO");
-		receivers[0].setRecvEmail("justwon323@hanwha.com");
-		receivers[1] = new WsRecipient();
-		receivers[1].setSeqID(2);
-		receivers[1].setRecvType("TO");
-		receivers[1].setRecvEmail("hkcho9799@hanwha.com");
-		receivers[2] = new WsRecipient();
-		receivers[2].setSeqID(3);
-		receivers[2].setRecvType("TO");
-		receivers[2].setRecvEmail("true84you@hanwha.com");
-		// receivers[3] = new WsRecipient();
-		// receivers[3].setSeqID(4);
-		// receivers[3].setRecvType("TO");
-		// receivers[3].setRecvEmail("nan0228@hanwha.com");
+		if(messageMailList != null){
+			MessageMailEntity messageMailEntity = messageMailList.get(0);
+			//수신자 지정
+			WsRecipient[] receivers = new WsRecipient[3];
+			receivers[0] = new WsRecipient();
+			receivers[0].setSeqID(1);
+			receivers[0].setRecvType("TO");
+			receivers[0].setRecvEmail("justwon323@hanwha.com");
+			receivers[1] = new WsRecipient();
+			receivers[1].setSeqID(2);
+			receivers[1].setRecvType("TO");
+			receivers[1].setRecvEmail("hkcho9799@hanwha.com");
+			receivers[2] = new WsRecipient();
+			receivers[2].setSeqID(3);
+			receivers[2].setRecvType("TO");
+			receivers[2].setRecvEmail("true84you@hanwha.com");
+			// receivers[3] = new WsRecipient();
+			// receivers[3].setSeqID(4);
+			// receivers[3].setRecvType("TO");
+			// receivers[3].setRecvEmail("nan0228@hanwha.com");
 
-		
-		String content = messageMailEntity.getMailContents();
-		MailSender mailSender = new MailSender();
-		mailSender.sendTextMail(MailEndpoint, messageMailEntity.getMailSubject(), sender, receivers,
-				content);
-		getDatacatAgentService().updateMailstatus(messageMailEntity.getSeq()); // 메일 발송 후 상태 업데이트
+			
+			String content = messageMailEntity.getMailContents();
+			MailSender mailSender = new MailSender();
+			mailSender.sendTextMail(MailEndpoint, messageMailEntity.getMailSubject(), sender, receivers,
+					content);
+			getDatacatAgentService().updateMailstatus(messageMailEntity.getSeq()); // 메일 발송 후 상태 업데이트
+		}
 	}
 	public void executeK8s(ScriptEntity scriptEntity, String env) throws RemoteException {
 
