@@ -47,7 +47,14 @@ public class DatacatAgentApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		if (args == null || args.length == 0) {
 			log.info("인자 전달이 필요 합니다. ex: dev-us (미국 개발계)");
-		} else {
+		} else if(args[0].equals("test")){
+			String[] scriptCommand = { "/bin/sh", "-c", args[1] };
+
+			StringBuilder scriptResult = new StringBuilder();
+			String result = "";
+			scriptResult = getDatacatAgentService().execShellScript(scriptCommand);
+					
+		}else{
 			log.info("인자 확인" + args[0]);
 			while (true) {
 				Timestamp timestamp = new Timestamp(System.currentTimeMillis());
