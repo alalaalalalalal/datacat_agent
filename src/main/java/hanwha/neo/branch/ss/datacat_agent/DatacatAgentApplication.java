@@ -53,7 +53,8 @@ public class DatacatAgentApplication implements CommandLineRunner {
 			StringBuilder scriptResult = new StringBuilder();
 			String result = "";
 			scriptResult = getDatacatAgentService().execShellScript(scriptCommand);
-					
+			result = scriptResult.toString();
+			log.info("스크립트 결과 확인" + result);
 		}else{
 			log.info("인자 확인" + args[0]);
 			while (true) {
