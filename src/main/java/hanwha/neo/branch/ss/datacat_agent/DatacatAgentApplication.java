@@ -146,6 +146,7 @@ public class DatacatAgentApplication implements CommandLineRunner {
 		if (lastExcutionAt == null) { // 최초실행
 			scriptResult = getDatacatAgentService().execShellScript(scriptCommand);
 			result = scriptResult.toString();
+			log.info("실행결과 = {}", result);
 			// true 가 0 false 가 0 아닌것
 			if (!result.equals("0") || result.length() > 1) {// 비정상
 				getDatacatAgentService().insertScriptResult(
@@ -153,6 +154,7 @@ public class DatacatAgentApplication implements CommandLineRunner {
 			} else {// 정상
 				getDatacatAgentService().insertScriptResult(new ExecutionLogEntity(0, result, timestamp, scriptId));
 			}
+
 		} else {
 			String lastExecStamp = String.valueOf(lastExcutionAt.getTime()); // 마지막 실행 시간
 			Date lastExecDate = new Date(Long.parseLong(lastExecStamp));
