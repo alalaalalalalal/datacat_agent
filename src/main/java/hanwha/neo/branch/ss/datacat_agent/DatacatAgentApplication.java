@@ -140,10 +140,11 @@ public class DatacatAgentApplication implements CommandLineRunner {
 		log.info("스크립트 log={}", scriptCommand[2]);
 		int scriptId = Long.valueOf(scriptEntity.getPid()).intValue();
 
-		Timestamp lastExcutionAt = getDatacatAgentService().readScriptExecutionAt(scriptId);
+		// Timestamp lastExcutionAt = getDatacatAgentService().readScriptExecutionAt(scriptId);
+		Timestamp lastExcutionAt = null;
 		StringBuilder scriptResult = new StringBuilder();
 		String result = "";
-		if (lastExcutionAt == null) { // 최초실행
+		if (lastExcutionAt == null) { // ㅋ최초실행
 			scriptResult = getDatacatAgentService().execShellScript(scriptCommand);
 			result = scriptResult.toString();
 			log.info("실행결과 = {}", result);
