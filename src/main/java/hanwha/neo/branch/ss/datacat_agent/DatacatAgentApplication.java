@@ -103,11 +103,11 @@ public class DatacatAgentApplication implements CommandLineRunner {
 		List<MessageMailEntity> messageMailList =  getDatacatAgentService().selectItrmMail("0");
 		if(!messageMailList.isEmpty()){
 			MessageMailEntity messageMailEntity = messageMailList.get(0);
-			String[] recvList = messageMailEntity.getMailRecvGroup().split("\\||");
+			String[] recvList = messageMailEntity.getMailRecvGroup().split("\\|\\|");
 			WsRecipient[] receivers = new WsRecipient[1];
 			MailSender mailSender = new MailSender();
-			for (String reciver : recvList){
-				log.info("리시버 {}" ,reciver);
+			for (String receiver : recvList){
+				log.info("리시버 {}" ,receiver);
 				// receivers[0] = new WsRecipient();
 				// receivers[0].setSeqID(1);
 				// receivers[0].setRecvType("TO");
