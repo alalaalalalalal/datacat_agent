@@ -107,13 +107,14 @@ public class DatacatAgentApplication implements CommandLineRunner {
 			WsRecipient[] receivers = new WsRecipient[1];
 			MailSender mailSender = new MailSender();
 			for (String reciver : recvList){
-				receivers[0] = new WsRecipient();
-				receivers[0].setSeqID(1);
-				receivers[0].setRecvType("TO");
-				receivers[0].setRecvEmail(reciver);
-				String content = messageMailEntity.getMailContents();
-				mailSender.sendTextMail(MailEndpoint, messageMailEntity.getMailSubject(), sender, receivers,
-					content);
+				log.info("리시버 {}" ,reciver);
+				// receivers[0] = new WsRecipient();
+				// receivers[0].setSeqID(1);
+				// receivers[0].setRecvType("TO");
+				// receivers[0].setRecvEmail(reciver);
+				// String content = messageMailEntity.getMailContents();
+				// mailSender.sendTextMail(MailEndpoint, messageMailEntity.getMailSubject(), sender, receivers,
+				// 	content);
 			}
 
 			//수신자 지정
