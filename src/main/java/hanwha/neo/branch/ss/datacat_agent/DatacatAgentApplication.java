@@ -63,11 +63,11 @@ public class DatacatAgentApplication implements CommandLineRunner {
 				String hour = sdf.format(timestamp).replace(":", "");
 				log.info ("시간 : "+ hour);
 				log.info ("아규먼트 : "+args[1]);
-			 	// if(hour.startsWith("00")){ // 9시 발송 개발계 IP 메일api에 미등록으로 UTC기준으로 변경
+			 	if(hour.startsWith("00")){ // 9시 발송 개발계 IP 메일api에 미등록으로 UTC기준으로 변경
 					if("y".equals(args[1])){
 						sendItrm();
 					}
-			 	// }
+			 	}
 				List<ScriptEntity> scriptList = getDatacatAgentService().readScript(args[0]);
 				for (ScriptEntity scriptEntity : scriptList) {
 					if (scriptEntity != null) {
@@ -118,15 +118,8 @@ public class DatacatAgentApplication implements CommandLineRunner {
 					content);
 			}
 
-			//수신자 지정
-			// receivers[3] = new WsRecipient();
-			// receivers[3].setSeqID(4);
-			// receivers[3].setRecvType("TO");
-			// receivers[3].setRecvEmail("nan0228@hanwha.com");
 
-			
-
-			// getDatacatAgentService().updateMailstatus(messageMailEntity.getSeq()); // 메일 발송 후 상태 업데이트
+			getDatacatAgentService().updateMailstatus(messageMailEntity.getSeq()); // 메일 발송 후 상태 업데이트
 		}
 	}
 	public void executeK8s(ScriptEntity scriptEntity, String env) throws RemoteException {
