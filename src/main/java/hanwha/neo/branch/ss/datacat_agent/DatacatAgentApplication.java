@@ -103,30 +103,27 @@ public class DatacatAgentApplication implements CommandLineRunner {
 		List<MessageMailEntity> messageMailList =  getDatacatAgentService().selectItrmMail("0");
 		if(!messageMailList.isEmpty()){
 			MessageMailEntity messageMailEntity = messageMailList.get(0);
+			String[] recvList = messageMailEntity.getMailRecvGroup().split("||");
+			WsRecipient[] receivers = new WsRecipient[1];
+			MailSender mailSender = new MailSender();
+			for (String reciver : recvList){
+				receivers[0] = new WsRecipient();
+				receivers[0].setSeqID(1);
+				receivers[0].setRecvType("TO");
+				receivers[0].setRecvEmail(reciver);
+				String content = messageMailEntity.getMailContents();
+				mailSender.sendTextMail(MailEndpoint, messageMailEntity.getMailSubject(), sender, receivers,
+					content);
+			}
+
 			//수신자 지정
-			WsRecipient[] receivers = new WsRecipient[3];
-			receivers[0] = new WsRecipient();
-			receivers[0].setSeqID(1);
-			receivers[0].setRecvType("TO");
-			receivers[0].setRecvEmail("justwon323@hanwha.com");
-			receivers[1] = new WsRecipient();
-			receivers[1].setSeqID(2);
-			receivers[1].setRecvType("TO");
-			receivers[1].setRecvEmail("hkcho9799@hanwha.com");
-			receivers[2] = new WsRecipient();
-			receivers[2].setSeqID(3);
-			receivers[2].setRecvType("TO");
-			receivers[2].setRecvEmail("true84you@hanwha.com");
 			// receivers[3] = new WsRecipient();
 			// receivers[3].setSeqID(4);
 			// receivers[3].setRecvType("TO");
 			// receivers[3].setRecvEmail("nan0228@hanwha.com");
 
 			
-			String content = messageMailEntity.getMailContents();
-			MailSender mailSender = new MailSender();
-			mailSender.sendTextMail(MailEndpoint, messageMailEntity.getMailSubject(), sender, receivers,
-					content);
+
 			getDatacatAgentService().updateMailstatus(messageMailEntity.getSeq()); // 메일 발송 후 상태 업데이트
 		}
 	}
@@ -140,13 +137,13 @@ public class DatacatAgentApplication implements CommandLineRunner {
 		log.info("스크립트 log={}", scriptCommand[2]);
 		int scriptId = Long.valueOf(scriptEntity.getPid()).intValue();
 
-		// Timestamp lastExcutionAt = getDatacatAgentService().readScriptExecutionAt(scriptId);
-		Timestamp lastExcutionAt = null;
+		Timestamp lastExcutionAt = getDatacatAgentService().readScriptExecutionAt(scriptId);
 		StringBuilder scriptResult = new StringBuilder();
 		String result = "";
-		if (lastExcutionAt == null) { // ㅋ최초실행
+		if (lastExcutionAt == null) { // 최초실행
 			scriptResult = getDatacatAgentService().execShellScript(scriptCommand);
 			result = scriptResult.toString();
+
 			log.info("실행결과 = {}", result);
 			// true 가 0 false 가 0 아닌것
 			if (!result.equals("0") || result.length() > 1) {// 비정상
