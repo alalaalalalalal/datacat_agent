@@ -1,12 +1,19 @@
 package hanwha.neo.branch.ss.datacat_agent;
 
-import java.sql.Timestamp;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class TEST {
 
-	public static void main(String[] args) {
-		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-		System.out.println(timestamp.toString());
+	public static void main(String[] args) throws IOException {
+		 	File file = new File("./src/main/resources/error.txt");
+			
+			FileReader file_reader = new FileReader(file);
+			int cur = 0;
+			while((cur = file_reader.read()) != -1){
+				System.out.print((char)cur);
+			}
 		// SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 		// // System.out.println(sdf.format(timestamp));
 		// Date today = new Date();
@@ -39,5 +46,5 @@ public class TEST {
 		// e.printStackTrace();
 		// }
 
-	}
+		}
 }

@@ -171,11 +171,57 @@ public class DatacatAgentApplication implements CommandLineRunner {
 					receivers[0].setSeqID(1);
 					receivers[0].setRecvType("TO");
 					receivers[0].setRecvEmail("justwon323@hanwha.com");
-					String content = env + " 환경에서 <br>" + timestamp.toString() + " 에 <br>" + scriptEntity.getCommand()+ "<br> 실행시 비정상 값 검출됨";
+					String content = "<!DOCTYPE html> \n"
+					+ " <html> \n"
+					+ " <head> \n"
+					+ "   <title>한화컨버젼스 점검항목 확인 </title> \n"
+					+ " </head> \n"
+					+ " <body style='font-family: Arial, Helvetica, sans-serif, text-align: center;'> \n"
+					+ "   <table cellpadding='0' cellspacing='0' border='0' style='width: 970px; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; margin: auto'> \n"
+					+ "   <tr> \n"
+					+ "     <td> \n"
+					+ " 	  <table cellpadding='0' cellspacing='0' border='0' style='width: 100%; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;'> \n"
+					+ " 		<tr bgcolor=#272f39 > \n"
+					+ " 		  <td style='padding: 1px; width:20%; text-align: left; font-weight: bold; border-bottom: 1px solid #ddd;'> \n"
+					+ " 			<img width=150 src='https://heis2.hanwha.com/_nuxt/img/sitlogo.png'> \n"
+					+ " 		  </td> \n"
+					+ " 		  <td style='padding: 1px; width:55%; text-align: center; font-size: 15px; font-weight: bold; border-bottom: 1px solid #ddd; color: #FFFFFF'>ITRM BATCH REPORT </td> \n"
+					+ " 		  <td style='padding: 1px; width:25%;  text-align: left; font-size: 11px; font-weight: bold; border-bottom: 1px solid #ddd;color: #FFFFFF'>점검자: SYSTEM<br>점검일시: ___T_v_mail_main_header_time___ <br> 점검일시: ___T_v_mail_main_header_kor_time___ (UTC+9) </td> \n"
+					+ " 		</tr> \n"
+					+ " 		<tr> \n"
+					+ " 		  <td></td> \n"
+					+ " 		</tr> \n"
+					+ " 	  </table>  \n"
+					+ " 	</td> \n"
+					+ "   </tr> \n"
+					+ "   <tr> \n"
+					+ "     <td> \n"
+					+ "		&nbsp;\n"
+					+ " 	</td> \n"
+					+ "   </tr> \n"
+					+ "   <tr> \n"
+					+ "     <td> \n"
+					+ " 	  <h2 style='font-size: 18px; margin-top: 20px;text-decoration: underline;'>확인 항목</h2> \n"
+					+ " 	  <table cellpadding='0' cellspacing='0' border='0' style='width: 100%; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;'> \n"
+					+ " 		<tr> \n"
+					+ " 		  <th   style='padding: 8px; font-size: 0.69em; text-align: center; background-color: #dbdbdb; border-bottom: 1px solid #ddd;'>내용</th>  \n"
+					+ " 		</tr> \n"
+					+ " 		<tr> \n"
+					+ "		  <td> ERROR-CONTENT\n"
+					+ " 		</tr> \n"
+					+ " 	  </table> \n"
+					+ " 	</td> \n"
+					+ "  </tr> \n"
+					+ " </table> \n"
+					+ "   </body> \n"
+					+ " </html> ";
+
+					content = content.replace("ERROR-CONTENT", env + " 환경에서 ( " + timestamp.toString() + " ) 에 " + scriptEntity.getCommand()+ " 점검항목 이상유무 발생 확인");
+
 					MailSender mailSender = new MailSender();
-					//@20230707 임시로 메일 발송만 막음ㄴ
-					// mailSender.sendTextMail(MailEndpoint, "확인요망 " + timestamp.toString(), sender, receivers,
-					// 		content);
+					// @20230707 임시로 메일 발송만 막음ㄴ
+					mailSender.sendTextMail(MailEndpoint, "확인요망 " + timestamp.toString(), sender, receivers,
+							content);
 
 					getDatacatAgentService().insertScriptResult(
 							new ExecutionLogEntity(1, result.length() > 1 ? "toolong" : result, timestamp, scriptId));
