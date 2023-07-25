@@ -90,6 +90,8 @@ public class DatacatAgentApplication implements CommandLineRunner {
 						} else {
 							log.info("스크립트 시간 체크로 제외됨");
 						}
+					}else{
+						log.info("스크립트 리드 실패");
 					}
 				}
 
