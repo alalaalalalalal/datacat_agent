@@ -222,9 +222,9 @@ public class DatacatAgentApplication implements CommandLineRunner {
 
 					MailSender mailSender = new MailSender();
 					// @20230707 임시로 메일 발송만 막음ㄴ
-					mailSender.sendTextMail(MailEndpoint, "확인요망 " + timestamp.toString(), sender, receivers,
+					mailSender.sendTextMail(MailEndpoint, "[점검]한화컨버젼스 BATCH 점검(자동점검) "+ timestamp.toString(), sender, receivers,
 							content);
-
+					log.info("알람 메일 전송");
 					getDatacatAgentService().insertScriptResult(
 							new ExecutionLogEntity(1, result.length() > 1 ? "toolong" : result, timestamp, scriptId));
 				} else {// 정상
