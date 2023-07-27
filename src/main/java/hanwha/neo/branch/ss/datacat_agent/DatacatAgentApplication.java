@@ -201,7 +201,7 @@ public class DatacatAgentApplication implements CommandLineRunner {
 				+ "   </body> \n"
 				+ " </html> ";
 
-				content = content.replace("ERROR-CONTENT", env + " 환경에서 ( " + timestamp.toString() + "  ) 에 <br> <span style=\"color:red;\">" + scriptEntity.getCommand()+ "<br> 점검항목 이상유무 발생 확인 </span>");
+				content = content.replace("ERROR-CONTENT", env + " 환경에서 ( " + timestamp.toString() + "  ) 에 <br> <span style='color:red;'>" + scriptEntity.getCommand()+ "</span> <br> 점검항목 이상유무 발생 확인 ");
 
 				MailSender mailSender = new MailSender();
 				// @20230707 임시로 메일 발송만 막음ㄴ
@@ -286,7 +286,7 @@ public class DatacatAgentApplication implements CommandLineRunner {
 					+ "   </body> \n"
 					+ " </html> ";
 
-					content = content.replace("ERROR-CONTENT", env + " 환경에서 ( " + timestamp.toString() + "  ) 에 <br> <span style='color:red;'>" + scriptEntity.getCommand()+ "<br> 점검항목 이상유무 발생 확인 </span>");
+					content = content.replace("ERROR-CONTENT", env + " 환경에서 ( " + timestamp.toString() + "  ) 에 <br> <span style='color:red;'>" + scriptEntity.getCommand()+ " </span><br> 점검항목 이상유무 발생 확인");
 
 					MailSender mailSender = new MailSender();
 					// @20230707 임시로 메일 발송만 막음ㄴ
