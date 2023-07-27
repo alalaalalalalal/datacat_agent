@@ -128,6 +128,13 @@ public class DatacatAgentApplication implements CommandLineRunner {
 
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
+		String utctimestamp = "";
+
+		Calendar utc = Calendar.getInstance();
+		utc.setTime(timestamp);
+		utc.add(Calendar.HOUR, 9); // 마지막 실행결과 시간 + 인터벌
+		utctimestamp = utc.getTime().toString();
+
 		// 현재시간 구함
 		String[] scriptCommand = { "/bin/sh", "-c", scriptEntity.getCommand() };
 
@@ -144,6 +151,66 @@ public class DatacatAgentApplication implements CommandLineRunner {
 			log.info("실행결과 = {}", result);
 			// true 가 0 false 가 0 아닌것
 			if (!result.equals("0") || result.length() > 1) {// 비정상
+				WsRecipient[] receivers = new WsRecipient[1];
+				receivers[0] = new WsRecipient();
+				receivers[0].setSeqID(1);
+				receivers[0].setRecvType("TO");
+				receivers[0].setRecvEmail("justwon323@hanwha.com");
+				String content = "<!DOCTYPE html> \n"
+				+ " <html> \n"
+				+ " <head> \n"
+				+ "   <title>한화컨버젼스 점검항목 확인 </title> \n"
+				+ " </head> \n"
+				+ " <body style='font-family: Arial, Helvetica, sans-serif, text-align: center;'> \n"
+				+ "   <table cellpadding='0' cellspacing='0' border='0' style='width: 970px; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; margin: auto'> \n"
+				+ "   <tr> \n"
+				+ "     <td> \n"
+				+ " 	  <table cellpadding='0' cellspacing='0' border='0' style='width: 100%; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;'> \n"
+				+ " 		<tr bgcolor=#272f39 > \n"
+				+ " 		  <td style='padding: 1px; width:20%; text-align: left; font-weight: bold; border-bottom: 1px solid #ddd;'> \n"
+				+ " 			<img width=150 src='https://heis2.hanwha.com/_nuxt/img/sitlogo.png'> \n"
+				+ " 		  </td> \n"
+				+ " 		  <td style='padding: 1px; width:55%; text-align: center; font-size: 15px; font-weight: bold; border-bottom: 1px solid #ddd; color: #FFFFFF'>ITRM BATCH REPORT </td> \n"
+				+ " 		  <td style='padding: 1px; width:25%;  text-align: left; font-size: 11px; font-weight: bold; border-bottom: 1px solid #ddd;color: #FFFFFF'>점검자: SYSTEM<br>점검일시: "+ timestamp.toString() +" <br> 점검일시: "+ utctimestamp +"_ (UTC+9) </td> \n"
+				+ " 		</tr> \n"
+				+ " 		<tr> \n"
+				+ " 		  <td></td> \n"
+				+ " 		</tr> \n"
+				+ " 	  </table>  \n"
+				+ " 	</td> \n"
+				+ "   </tr> \n"
+				+ "   <tr> \n"
+				+ "     <td> \n"
+				+ "		&nbsp;\n"
+				+ " 	</td> \n"
+				+ "   </tr> \n"
+				+ "   <tr> \n"
+				+ "     <td> \n"
+				+ " 	  <h2 style='font-size: 18px; margin-top: 20px;text-decoration: underline;'>확인 항목</h2> \n"
+				+ " 	  <table cellpadding='0' cellspacing='0' border='0' style='width: 100%; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;'> \n"
+				+ " 		<tr> \n"
+				+ " 		  <th   style='padding: 8px; font-size: 0.69em; text-align: center; background-color: #dbdbdb; border-bottom: 1px solid #ddd;'>내용</th>  \n"
+				+ " 		</tr> \n"
+				+ " 		<tr> \n"
+				+ "		  <td> ERROR-CONTENT\n"
+				+ " 		</tr> \n"
+				+ " 	  </table> \n"
+				+ " 	</td> \n"
+				+ "  </tr> \n"
+				+ " </table> \n"
+				+ "   </body> \n"
+				+ " </html> ";
+
+				content = content.replace("ERROR-CONTENT", env + " 환경에서 ( " + timestamp.toString() + "  ) 에 <br> <span style=\"color:red;\">" + scriptEntity.getCommand()+ "<br> 점검항목 이상유무 발생 확인 </span>");
+
+				MailSender mailSender = new MailSender();
+				// @20230707 임시로 메일 발송만 막음ㄴ
+				mailSender.sendTextMail(MailEndpoint, "[점검]한화컨버젼스 BATCH 점검(자동점검) "+ timestamp.toString(), sender, receivers,
+						content);
+				log.info("알람 메일 전송");
+
+
+
 				getDatacatAgentService().insertScriptResult(
 						new ExecutionLogEntity(1, result.length() > 1 ? "toolong" : result, timestamp, scriptId));
 			} else {// 정상
@@ -155,12 +222,6 @@ public class DatacatAgentApplication implements CommandLineRunner {
 			Date lastExecDate = new Date(Long.parseLong(lastExecStamp));
 			// 스크립트 실행
 			timestamp = new Timestamp(System.currentTimeMillis());
-			String utctimestamp = "";
-
-			Calendar utc = Calendar.getInstance();
-			utc.setTime(timestamp);
-			utc.add(Calendar.HOUR, 9); // 마지막 실행결과 시간 + 인터벌
-			utctimestamp = utc.getTime().toString();
 
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(lastExecDate);
