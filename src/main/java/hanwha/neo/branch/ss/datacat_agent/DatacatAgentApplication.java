@@ -256,7 +256,7 @@ public class DatacatAgentApplication implements CommandLineRunner {
 					+ " 			<img width=150 src='https://heis2.hanwha.com/_nuxt/img/sitlogo.png'> \n"
 					+ " 		  </td> \n"
 					+ " 		  <td style='padding: 1px; width:55%; text-align: center; font-size: 15px; font-weight: bold; border-bottom: 1px solid #ddd; color: #FFFFFF'>ITRM BATCH REPORT </td> \n"
-					+ " 		  <td style='padding: 1px; width:25%;  text-align: left; font-size: 11px; font-weight: bold; border-bottom: 1px solid #ddd;color: #FFFFFF'>점검자: SYSTEM<br>점검일시: "+ timestamp.toString() +" <br> 점검일시: "+ utctimestamp +"_ (UTC+9) </td> \n"
+					+ " 		  <td style='padding: 1px; width:25%;  text-align: left; font-size: 11px; font-weight: bold; border-bottom: 1px solid #ddd;color: #FFFFFF'>점검자: SYSTEM<br>점검일시: "+ timestamp.toString() +" <br> 점검일시: "+ utctimestamp +" (UTC+9) </td> \n"
 					+ " 		</tr> \n"
 					+ " 		<tr> \n"
 					+ " 		  <td></td> \n"
@@ -286,7 +286,7 @@ public class DatacatAgentApplication implements CommandLineRunner {
 					+ "   </body> \n"
 					+ " </html> ";
 
-					content = content.replace("ERROR-CONTENT", env + " 환경에서 ( " + timestamp.toString() + "  ) 에 <br> <span style=\"color:red;\">" + scriptEntity.getCommand()+ "<br> 점검항목 이상유무 발생 확인 </span>");
+					content = content.replace("ERROR-CONTENT", env + " 환경에서 ( " + timestamp.toString() + "  ) 에 <br> <span style='color:red;'>" + scriptEntity.getCommand()+ "<br> 점검항목 이상유무 발생 확인 </span>");
 
 					MailSender mailSender = new MailSender();
 					// @20230707 임시로 메일 발송만 막음ㄴ
