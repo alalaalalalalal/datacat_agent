@@ -155,6 +155,13 @@ public class DatacatAgentApplication implements CommandLineRunner {
 			Date lastExecDate = new Date(Long.parseLong(lastExecStamp));
 			// 스크립트 실행
 			timestamp = new Timestamp(System.currentTimeMillis());
+			String utctimestamp = "";
+
+			Calendar utc = Calendar.getInstance();
+			utc.setTime(timestamp);
+			utc.add(Calendar.HOUR, 9); // 마지막 실행결과 시간 + 인터벌
+			utctimestamp = utc.getTime().toString();
+
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(lastExecDate);
 			cal.add(Calendar.MINUTE, scriptEntity.getRepeatInterval()); // 마지막 실행결과 시간 + 인터벌
@@ -188,7 +195,7 @@ public class DatacatAgentApplication implements CommandLineRunner {
 					+ " 			<img width=150 src='https://heis2.hanwha.com/_nuxt/img/sitlogo.png'> \n"
 					+ " 		  </td> \n"
 					+ " 		  <td style='padding: 1px; width:55%; text-align: center; font-size: 15px; font-weight: bold; border-bottom: 1px solid #ddd; color: #FFFFFF'>ITRM BATCH REPORT </td> \n"
-					+ " 		  <td style='padding: 1px; width:25%;  text-align: left; font-size: 11px; font-weight: bold; border-bottom: 1px solid #ddd;color: #FFFFFF'>점검자: SYSTEM<br>점검일시: ___T_v_mail_main_header_time___ <br> 점검일시: ___T_v_mail_main_header_kor_time___ (UTC+9) </td> \n"
+					+ " 		  <td style='padding: 1px; width:25%;  text-align: left; font-size: 11px; font-weight: bold; border-bottom: 1px solid #ddd;color: #FFFFFF'>점검자: SYSTEM<br>점검일시: "+ timestamp.toString() +" <br> 점검일시: "+ utctimestamp +"_ (UTC+9) </td> \n"
 					+ " 		</tr> \n"
 					+ " 		<tr> \n"
 					+ " 		  <td></td> \n"
@@ -218,7 +225,7 @@ public class DatacatAgentApplication implements CommandLineRunner {
 					+ "   </body> \n"
 					+ " </html> ";
 
-					content = content.replace("ERROR-CONTENT", env + " 환경에서 ( " + timestamp.toString() + " ) 에 " + scriptEntity.getCommand()+ " 점검항목 이상유무 발생 확인");
+					content = content.replace("ERROR-CONTENT", env + " 환경에서 ( " + timestamp.toString() + "  ) 에 <br> <span style=\"color:red;\">" + scriptEntity.getCommand()+ "<br> 점검항목 이상유무 발생 확인 </span>");
 
 					MailSender mailSender = new MailSender();
 					// @20230707 임시로 메일 발송만 막음ㄴ
