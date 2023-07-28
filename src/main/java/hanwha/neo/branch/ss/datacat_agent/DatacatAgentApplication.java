@@ -206,7 +206,7 @@ public class DatacatAgentApplication implements CommandLineRunner {
 				+ "   </body> \n"
 				+ " </html> ";
 
-				content = content.replace("ERROR-CONTENT", env + " 환경에서 ( " + timestamp.toString() + "  ) 에 </td> </tr><tr> <td style='color=red'>" + scriptEntity.getCommand()+ "</td> </tr> <tr> <td>점검항목 이상유무 발생 확인 </td>");
+				content = content.replace("ERROR-CONTENT", env + " 환경에서 ( " + timestamp.toString() + "  ) 에 </td> </tr><tr> <td style='color:red'>" + scriptEntity.getCommand()+ "</td> </tr> <tr> <td>점검항목 이상유무 발생 확인 </td>");
 
 				MailSender mailSender = new MailSender();
 				// @20230707 임시로 메일 발송만 막음ㄴ
@@ -297,7 +297,7 @@ public class DatacatAgentApplication implements CommandLineRunner {
 					+ "   </body> \n"
 					+ " </html> ";
 
-					content = content.replace("ERROR-CONTENT", env + " 환경에서 ( " + timestamp.toString() + "  ) 에 </td> </tr><tr> <td style='color=red'>" + scriptEntity.getCommand()+ "</td> </tr> <tr> <td>점검항목 이상유무 발생 확인 </td>");
+					content = content.replace("ERROR-CONTENT", env + " 환경에서 ( " + timestamp.toString() + "  ) 에 </td> </tr><tr> <td style='color:red'>" + scriptEntity.getCommand()+ "</td> </tr> <tr> <td>점검항목 이상유무 발생 확인 </td>");
 					MailSender mailSender = new MailSender();
 					// @20230707 임시로 메일 발송만 막음ㄴ
 					mailSender.sendTextMail(MailEndpoint, "[점검]한화컨버젼스 BATCH 점검(자동점검) "+ timestamp.toString(), sender, receivers,
