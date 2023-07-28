@@ -220,6 +220,7 @@ public class DatacatAgentApplication implements CommandLineRunner {
 						new ExecutionLogEntity(1, result.length() > 1 ? "toolong" : result, timestamp, scriptId));
 			} else {// 정상
 				getDatacatAgentService().insertScriptResult(new ExecutionLogEntity(0, result, timestamp, scriptId));
+				log.info("정상으로 알람 메일 미 전송");
 			}
 
 		} else {
@@ -306,6 +307,7 @@ public class DatacatAgentApplication implements CommandLineRunner {
 							new ExecutionLogEntity(1, result.length() > 1 ? "toolong" : result, timestamp, scriptId));
 				} else {// 정상
 					getDatacatAgentService().insertScriptResult(new ExecutionLogEntity(0, result, timestamp, scriptId));
+					log.info("정상으로 알람 메일 미 전송");
 				}
 			}
 		}
