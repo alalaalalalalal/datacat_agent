@@ -133,7 +133,7 @@ public class DatacatAgentApplication implements CommandLineRunner {
 		Calendar utc = Calendar.getInstance();
 		utc.setTime(timestamp);
 		utc.add(Calendar.HOUR, 9); // 마지막 실행결과 시간 + 인터벌
-		utctimestamp = utc.getTime().toString();
+		utctimestamp = new Timestamp(utc.getTimeInMillis()).toString();
 
 		// 현재시간 구함
 		String[] scriptCommand = { "/bin/sh", "-c", scriptEntity.getCommand() };
@@ -171,7 +171,7 @@ public class DatacatAgentApplication implements CommandLineRunner {
 				+ " 			<img width=150 src='https://heis2.hanwha.com/_nuxt/img/sitlogo.png'> \n"
 				+ " 		  </td> \n"
 				+ " 		  <td style='padding: 1px; width:55%; text-align: center; font-size: 15px; font-weight: bold; border-bottom: 1px solid #ddd; color: #FFFFFF'>ITRM BATCH REPORT </td> \n"
-				+ " 		  <td style='padding: 1px; width:25%;  text-align: left; font-size: 11px; font-weight: bold; border-bottom: 1px solid #ddd;color: #FFFFFF'>점검자: SYSTEM<br>점검일시: "+ timestamp.toString() +" <br> 점검일시: "+ utctimestamp +"_ (UTC+9) </td> \n"
+				+ " 		  <td style='padding: 1px; width:25%;  text-align: left; font-size: 11px; font-weight: bold; border-bottom: 1px solid #ddd;color: #FFFFFF'>점검자: SYSTEM<br>점검일시: "+ timestamp.toString() +" <br> 점검일시: "+ utctimestamp +" (UTC+9) </td> \n"
 				+ " 		</tr> \n"
 				+ " 		<tr> \n"
 				+ " 		  <td></td> \n"
@@ -221,7 +221,7 @@ public class DatacatAgentApplication implements CommandLineRunner {
 			String lastExecStamp = String.valueOf(lastExcutionAt.getTime()); // 마지막 실행 시간
 			Date lastExecDate = new Date(Long.parseLong(lastExecStamp));
 			// 스크립트 실행
-			timestamp = new Timestamp(System.currentTimeMillis());
+			// timestamp = new Timestamp(System.currentTimeMillis());
 
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(lastExecDate);
