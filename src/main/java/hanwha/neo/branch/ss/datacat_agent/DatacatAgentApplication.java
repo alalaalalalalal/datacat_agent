@@ -296,7 +296,7 @@ public class DatacatAgentApplication implements CommandLineRunner {
 					+ "   </body> \n"
 					+ " </html> ";
 
-					content = content.replace("ERROR-CONTENT", env + " 환경에서 ( " + timestamp.toString() + "  ) 에 <br> " + scriptEntity.getCommand()+ " <br> 점검항목 이상유무 발생 확인");
+					content = content.replace("ERROR-CONTENT", env + " 환경에서 ( " + timestamp.toString() + "  ) 에 <br> </td> <td bgcolor=#ff0000>" + scriptEntity.getCommand()+ "</td><td> <br> 점검항목 이상유무 발생 확인</td>");
 
 					MailSender mailSender = new MailSender();
 					// @20230707 임시로 메일 발송만 막음ㄴ
