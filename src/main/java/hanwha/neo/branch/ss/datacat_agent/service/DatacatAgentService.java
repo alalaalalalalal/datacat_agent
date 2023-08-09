@@ -30,7 +30,7 @@ public interface DatacatAgentService {
     public void updateMailstatus(Long pid);
 
     // 스크립트 실행
-    public StringBuilder execShellScript(String[] script);
+    public String execShellScript(String[] script);
 
     // 스크립트 최종 실행 시간 조회
     public Timestamp readScriptExecutionAt(int scriptId);

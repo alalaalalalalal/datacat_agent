@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -57,11 +58,15 @@ public class DatacatAgentServiceImpl implements DatacatAgentService {
     }
 
     @Override
-    public StringBuilder execShellScript(String[] script) {
+    public String execShellScript(String[] script) {
         try {
             // Run script
             Process process = Runtime.getRuntime().exec(script);
 
+            if (!process.waitFor(15, TimeUnit.SECONDS)) {
+                process.destroy();
+                return "error";
+            }
             // Read output
             StringBuilder output = new StringBuilder();
             BufferedReader reader = new BufferedReader(
@@ -71,13 +76,12 @@ public class DatacatAgentServiceImpl implements DatacatAgentService {
             while ((line = reader.readLine()) != null) {
                 output.append(line);
             }
-
             // System.out.println(output.toString());
 
-            return output;
+            return output.toString();
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            return "error";
         }
 
     }
