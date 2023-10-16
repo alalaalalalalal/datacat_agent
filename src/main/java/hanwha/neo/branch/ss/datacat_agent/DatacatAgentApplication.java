@@ -63,6 +63,7 @@ public class DatacatAgentApplication implements CommandLineRunner {
 				log.info ("아규먼트 : "+args[1]);
 			 	// if(hour.startsWith("00")){ // 9시 발송 개발계 IP 메일api에 미등록으로 UTC기준으로 변경
 					if("y".equals(args[1])){
+						log.info("##@@메일전송##@@");
 						sendItrm();
 					}
 			 	// }
@@ -102,6 +103,7 @@ public class DatacatAgentApplication implements CommandLineRunner {
 	public void sendItrm() throws RemoteException  {
 		List<MessageMailEntity> messageMailList =  getDatacatAgentService().selectItrmMail("0");
 		if(!messageMailList.isEmpty()){
+			log.info("메일 전송중@@@@@");
 			MessageMailEntity messageMailEntity = messageMailList.get(0);
 			String[] recvList = messageMailEntity.getMailRecvGroup().split("\\|\\|");
 			WsRecipient[] receivers = new WsRecipient[1];
@@ -121,6 +123,7 @@ public class DatacatAgentApplication implements CommandLineRunner {
 
 			getDatacatAgentService().updateMailstatus(messageMailEntity.getSeq()); // 메일 발송 후 상태 업데이트
 		}
+		log.info("메일 전송 대상이 없습니다???");
 	}
 	public void executeK8s(ScriptEntity scriptEntity, String env) throws RemoteException {
 
