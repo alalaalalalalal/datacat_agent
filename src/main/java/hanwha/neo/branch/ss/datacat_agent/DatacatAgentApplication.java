@@ -12,12 +12,15 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import hanwha.neo.branch.ss.common.vo.WsException;
 import hanwha.neo.branch.ss.datacat_agent.entity.ExecutionLogEntity;
 import hanwha.neo.branch.ss.datacat_agent.entity.MessageMailEntity;
 import hanwha.neo.branch.ss.datacat_agent.entity.ScriptEntity;
 import hanwha.neo.branch.ss.datacat_agent.service.DatacatAgentService;
 import hanwha.neo.branch.ss.datacat_agent.service.DatacatAgentServiceImpl;
 import hanwha.neo.branch.ss.mail.service.MailSender;
+import hanwha.neo.branch.ss.mail.service.MailServiceProxy;
+import hanwha.neo.branch.ss.mail.vo.WsMailInfo;
 import hanwha.neo.branch.ss.mail.vo.WsRecipient;
 import lombok.extern.slf4j.Slf4j;
 
@@ -45,6 +48,33 @@ public class DatacatAgentApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+		String endpoint = "http://hcom.circle.hanwha.com/api/axis/services/MailService?wsdl";
+		MailServiceProxy proxy = new MailServiceProxy();
+		proxy.setEndpoint(endpoint);
+
+		WsMailInfo mailInfo = new WsMailInfo();
+		mailInfo.setSubject("test");
+		mailInfo.setHtmlContent(true);
+		mailInfo.setAttachCount(0);
+		mailInfo.setSenderEmail("justwon323@hanwha.com");
+		mailInfo.setImportant(false);
+
+		WsRecipient[] receivers = new WsRecipient[1];
+		receivers[0] = new WsRecipient();
+		receivers[0].setSeqID(1);
+		receivers[0].setRecvType("TO");
+		receivers[0].setRecvEmail("justwon323@hanwha.com");
+
+		try {
+			String mailbody = "test content";
+			String resultMsg = proxy.sendMISMail(mailbody, mailInfo, receivers, null);
+			System.out.println("result :" + resultMsg);
+		} catch (WsException e) {
+			System.out.println("error");
+		}
+
+
+
 		if (args == null || args.length == 0) {
 			log.info("인자 전달이 필요 합니다. ex: dev-us (미국 개발계)");
 		} else if(args[0].equals("test")){

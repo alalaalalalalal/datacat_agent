@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "testmailsend",
+            "request": "launch",
+            "mainClass": "hanwha.neo.branch.ss.mail.testmailsend",
+            "projectName": "datacat_agent"
+        },
+        {
+            "type": "java",
             "name": "TEST2",
             "request": "launch",
             "mainClass": "hanwha.neo.branch.ss.datacat_agent.TEST2",
