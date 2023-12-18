@@ -63,7 +63,7 @@ public class DatacatAgentServiceImpl implements DatacatAgentService {
             // Run script
             Process process = Runtime.getRuntime().exec(script);
 
-            if (!process.waitFor(60, TimeUnit.SECONDS)) {
+            if (!process.waitFor(90, TimeUnit.SECONDS)) {
                 process.destroy();
                 return "error";
             }

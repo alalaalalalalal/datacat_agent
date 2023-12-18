@@ -12,7 +12,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import hanwha.neo.branch.ss.common.vo.WsException;
 import hanwha.neo.branch.ss.datacat_agent.entity.ExecutionLogEntity;
 import hanwha.neo.branch.ss.datacat_agent.entity.MessageMailEntity;
 import hanwha.neo.branch.ss.datacat_agent.entity.ScriptEntity;
@@ -64,15 +63,6 @@ public class DatacatAgentApplication implements CommandLineRunner {
 		receivers[0].setSeqID(1);
 		receivers[0].setRecvType("TO");
 		receivers[0].setRecvEmail("justwon323@hanwha.com");
-
-		try {
-			String mailbody = "test content";
-			String resultMsg = proxy.sendMISMail(mailbody, mailInfo, receivers, null);
-			System.out.println("result :" + resultMsg);
-		} catch (WsException e) {
-			System.out.println("error");
-		}
-
 
 
 		if (args == null || args.length == 0) {
