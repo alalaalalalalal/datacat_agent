@@ -1,4 +1,4 @@
-#메이븐 빌드(jar생성)
-mvn clean package -Dmaven.test.skip=true #무한루프때문에 테스트 돌리면 안끝남...
-#도커 빌드 
-docker build -f ./Dockerfile -t datacat_agent . --platform linux/amd64
+nohup java -Xmx128m -jar ./target/datacat_agent-0.0.1-SNAPSHOT.jar prd-us y &
+# 파라미터(2개) 설명
+# 1. 실행할 호스트(prd-us = 운영계)
+# 2. ITRM 점검 메일 전송여부( y or n)
