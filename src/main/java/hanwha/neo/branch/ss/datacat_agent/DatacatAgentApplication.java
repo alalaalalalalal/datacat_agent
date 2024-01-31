@@ -38,7 +38,7 @@ public class DatacatAgentApplication implements CommandLineRunner {
 
 	// 메일 관련
 	private final String MailEndpoint = "http://hcom.circle.hanwha.com/api/axis/services/MailService?wsdl";
-	private final String sender = "justwon323@hanwha.com";
+	private final String sender = "hanwha.sit@hanwha.com";
 
 	@Bean
 	public DatacatAgentService getDatacatAgentService() {
@@ -50,20 +50,6 @@ public class DatacatAgentApplication implements CommandLineRunner {
 		String endpoint = "http://hcom.circle.hanwha.com/api/axis/services/MailService?wsdl";
 		MailServiceProxy proxy = new MailServiceProxy();
 		proxy.setEndpoint(endpoint);
-
-		WsMailInfo mailInfo = new WsMailInfo();
-		mailInfo.setSubject("test");
-		mailInfo.setHtmlContent(true);
-		mailInfo.setAttachCount(0);
-		mailInfo.setSenderEmail("justwon323@hanwha.com");
-		mailInfo.setImportant(false);
-
-		WsRecipient[] receivers = new WsRecipient[1];
-		receivers[0] = new WsRecipient();
-		receivers[0].setSeqID(1);
-		receivers[0].setRecvType("TO");
-		receivers[0].setRecvEmail("justwon323@hanwha.com");
-
 
 		if (args == null || args.length == 0) {
 			log.info("인자 전달이 필요 합니다. ex: dev-us (미국 개발계)");
@@ -174,12 +160,12 @@ public class DatacatAgentApplication implements CommandLineRunner {
 				receivers[0] = new WsRecipient();
 				receivers[0].setSeqID(1);
 				receivers[0].setRecvType("TO");
-				receivers[0].setRecvEmail("justwon323@hanwha.com");
+				receivers[0].setRecvEmail("");
 
 				receivers[1] = new WsRecipient();
 				receivers[1].setSeqID(1);
 				receivers[1].setRecvType("TO");
-				receivers[1].setRecvEmail("true84you@hanwha.com");
+				receivers[1].setRecvEmail("");
 				String content = "<!DOCTYPE html> \n"
 				+ " <html> \n"
 				+ " <head> \n"
@@ -227,10 +213,9 @@ public class DatacatAgentApplication implements CommandLineRunner {
 
 				content = content.replace("ERROR-CONTENT", env + " 환경에서 ( " + timestamp.toString() + "  ) 에 </td> </tr><tr> <td style='color:red'>" + scriptEntity.getComment()+ "</td> </tr> <tr> <td>점검항목 이상유무 발생 확인 </td>");
 
-				MailSender mailSender = new MailSender();
-				// @20230707 임시로 메일 발송만 막음ㄴ
-				mailSender.sendTextMail(MailEndpoint, "[점검]한화컨버젼스 BATCH 점검(자동점검) "+ timestamp.toString(), sender, receivers,
-						content);
+				// MailSender mailSender = new MailSender();
+				// mailSender.sendTextMail(MailEndpoint, "[점검]한화컨버젼스 BATCH 점검(자동점검) "+ timestamp.toString(), sender, receivers,
+				// 		content);
 				log.info("알람 메일 전송");
 
 
@@ -264,12 +249,12 @@ public class DatacatAgentApplication implements CommandLineRunner {
 					receivers[0] = new WsRecipient();
 					receivers[0].setSeqID(1);
 					receivers[0].setRecvType("TO");
-					receivers[0].setRecvEmail("justwon323@hanwha.com");
+					receivers[0].setRecvEmail("");
 
 					receivers[1] = new WsRecipient();
 					receivers[1].setSeqID(1);
 					receivers[1].setRecvType("TO");
-					receivers[1].setRecvEmail("true84you@hanwha.com");
+					receivers[1].setRecvEmail("");
 					String content = "<!DOCTYPE html> \n"
 					+ " <html> \n"
 					+ " <head> \n"
@@ -316,10 +301,10 @@ public class DatacatAgentApplication implements CommandLineRunner {
 					+ " </html> ";
 
 					content = content.replace("ERROR-CONTENT", env + " 환경에서 ( " + timestamp.toString() + "  ) 에 </td> </tr><tr> <td style='color:red'>" + scriptEntity.getComment()+ "</td> </tr> <tr> <td>점검항목 이상유무 발생 확인 </td>");
-					MailSender mailSender = new MailSender();
+					// MailSender mailSender = new MailSender();
 					// @20230707 임시로 메일 발송만 막음ㄴ
-					mailSender.sendTextMail(MailEndpoint, "[점검]한화컨버젼스 BATCH 점검(자동점검) "+ timestamp.toString(), sender, receivers,
-							content);
+					// mailSender.sendTextMail(MailEndpoint, "[점검]한화컨버젼스 BATCH 점검(자동점검) "+ timestamp.toString(), sender, receivers,
+					// 		content);
 					log.info("알람 메일 전송");
 					getDatacatAgentService().insertScriptResult(
 							new ExecutionLogEntity(1, result.length() > 1 ? "toolong" : result, timestamp, scriptId));
