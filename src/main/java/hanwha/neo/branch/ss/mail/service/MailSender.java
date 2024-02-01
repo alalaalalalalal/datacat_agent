@@ -23,11 +23,6 @@ public class MailSender {
 		mailInfo.setSenderEmail(sender);
 		mailInfo.setImportant(false);
 
-		// WsRecipient[] receivers = new WsRecipient[1];
-		// receivers[0] = new WsRecipient();
-		// receivers[0].setSeqID(1);
-		// receivers[0].setRecvType("TO");
-		// receivers[0].setRecvEmail("justwon323@hanwha.com");
 
 		try {
 			String resultMsg = proxy.sendMISMail(content, mailInfo, receivers, null);
