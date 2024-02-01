@@ -6,8 +6,6 @@
 /Users/jamesyu/Documents/GitHub/datacat_agent/src/main/java/hanwha/neo/branch/ss/datacat_agent/repository/ScriptRepository.java
 /Users/jamesyu/Documents/GitHub/datacat_agent/src/main/java/hanwha/neo/branch/ss/mail/vo/WsResource.java
 /Users/jamesyu/Documents/GitHub/datacat_agent/src/main/java/hanwha/neo/branch/ss/mail/vo/WsMailStatus.java
-/Users/jamesyu/Documents/GitHub/datacat_agent/src/main/java/hanwha/neo/branch/ss/datacat_agent/TEST2.java
-/Users/jamesyu/Documents/GitHub/datacat_agent/src/main/java/hanwha/neo/branch/ss/datacat_agent/TEST.java
 /Users/jamesyu/Documents/GitHub/datacat_agent/src/main/java/hanwha/neo/branch/ss/mail/vo/WsRecipient.java
 /Users/jamesyu/Documents/GitHub/datacat_agent/src/main/java/hanwha/neo/branch/ss/datacat_agent/service/DatacatAgentServiceImpl.java
 /Users/jamesyu/Documents/GitHub/datacat_agent/src/main/java/hanwha/neo/branch/ss/common/vo/WsException.java
@@ -20,7 +18,6 @@
 /Users/jamesyu/Documents/GitHub/datacat_agent/src/main/java/hanwha/neo/branch/ss/datacat_agent/repository/UserRepository.java
 /Users/jamesyu/Documents/GitHub/datacat_agent/src/main/java/hanwha/neo/branch/ss/datacat_agent/entity/JobEntity.java
 /Users/jamesyu/Documents/GitHub/datacat_agent/src/main/java/hanwha/neo/branch/ss/datacat_agent/entity/UserEntity.java
-/Users/jamesyu/Documents/GitHub/datacat_agent/src/main/java/com/SSH2AWS.java
 /Users/jamesyu/Documents/GitHub/datacat_agent/src/main/java/hanwha/neo/branch/ss/datacat_agent/repository/JobRepository.java
 /Users/jamesyu/Documents/GitHub/datacat_agent/src/main/java/hanwha/neo/branch/ss/datacat_agent/MysqlConnector.java
 /Users/jamesyu/Documents/GitHub/datacat_agent/src/main/java/hanwha/neo/branch/ss/datacat_agent/entity/CategoryMainEntity.java
@@ -31,7 +28,6 @@
 /Users/jamesyu/Documents/GitHub/datacat_agent/src/main/java/hanwha/neo/branch/ss/datacat_agent/DatacatAgentApplication.java
 /Users/jamesyu/Documents/GitHub/datacat_agent/src/main/java/hanwha/neo/branch/ss/mail/service/MailServiceService.java
 /Users/jamesyu/Documents/GitHub/datacat_agent/src/main/java/hanwha/neo/branch/ss/datacat_agent/repository/CategorySubRepository.java
-/Users/jamesyu/Documents/GitHub/datacat_agent/src/main/java/hanwha/neo/branch/ss/mail/testmailsend.java
 /Users/jamesyu/Documents/GitHub/datacat_agent/src/main/java/hanwha/neo/branch/ss/common/vo/WsAttachFile.java
 /Users/jamesyu/Documents/GitHub/datacat_agent/src/main/java/hanwha/neo/branch/ss/datacat_agent/service/DatacatAgentService.java
 /Users/jamesyu/Documents/GitHub/datacat_agent/src/main/java/hanwha/neo/branch/ss/mail/vo/WsScheduleInfo.java
